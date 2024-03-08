@@ -29,3 +29,6 @@ genUp1Octave = 0 # will generate an additional chord that is the root position r
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types
 printGraphsFlag = 1
 ```
+
+### Sending the Generated Waveforms to Elektron's C6 Software
+After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. Because the monomachine only accepts 4 letter names for each .wav file with respect to it's DigiPRO machines, prefix numbers cannot be used to organize the samples for export to C6. To get around this, the program appends a fake modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
