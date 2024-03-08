@@ -2,9 +2,9 @@
 
 # Elektron Monomachine Single Cycle Chord Generator
 
-This program generates single-cycle just intonation chord waveforms for the Elektron Monomachine with full control over the generation parameters, waveform type, and inversion positions. The program will also append user specified files to the end of the output list.
+This program generates single-cycle just intonation chord waveforms for the Elektron Monomachine giving the user control over the generation parameters, waveform type, and inversion/voicing positions to generate. The program will also append user specified files to the end of the output list for quick importing into Elektron's C6 software.
 
-This tool is based on [original code by lucianon](https://github.com/len/SCC), adding to its functionality & specializing it for use with Elektron's C6 software & Monomachine Synthesizer.
+This tool is based on [original code by lucianon](https://github.com/len/SCC), adding to its functionality & specializing it for use with Elektron's C6 software & Monomachine Synthesizer. My desire to make this program was originally inspired by Elektronauts forum user Veets in [this video](https://www.youtube.com/watch?v=6O-p-Kbrt9o)
 
 ## Usage
 In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates. They are all off/on swtiches except `onlyGenXInversion` which can be an integer value, whos "off" position is also 0.
