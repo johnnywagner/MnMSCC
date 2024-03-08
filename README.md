@@ -44,3 +44,8 @@ For example:
 **CHO7** as a display name on the Monomachine for an input waveform (and Machinedrum UW)
 
 While this works well enough as a catchall way to autoname files, you cannot organize the files numerically without the prefix being used to generate a display name for the waveform on the Monomachine. To get around this, the program appends a dummy modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
+
+## Features I Couldn't Figure Out to Impliment:
+* Compressing the waveforms a little bit to increase their percieved loudness
+* Reverse engineering the DigiPRO format to auto generate the final waveform banks. user [rumblesan](https://gist.github.com/rumblesan/e520ae4099d0583e3ef4e228beabe2b3) did quiet alot of the heavy lifting already revese engineering the file format, but I lack the techncial expertise to fully reverse engineer the waveform encoding.
+
