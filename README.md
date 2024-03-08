@@ -30,6 +30,9 @@ genUp1Octave = 0 # will generate an additional chord that is the root position r
 ```
 printGraphsFlag = 1
 ```
-
+→
 ### Sending the Generated Waveforms to Elektron's C6 Software
-After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. Because the monomachine only accepts 4 letter names for each .wav file with respect to it's DigiPRO machines, prefix numbers cannot be used to organize the samples for export to C6. To get around this, the program appends a fake modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
+After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. C6 only uses 4 letter names for each .wav once it send them to a machine, taking the first three and last characters of an input file to use as the display name.
+For example:
+**Cho**rdSample0**7**.wav would yield CHO7 as a display name on the Monomachine (and Machinedrum UW)
+Due to thisprefix numbers cannot be used to organize the samples for export to C6. To get around this, the program appends a fake modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
