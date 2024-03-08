@@ -8,17 +8,20 @@ This tool is based on [original code by lucianon](https://github.com/len/SCC), a
 
 ## Usage
 In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates. They are all off/on swtiches except `onlyGenXInversion` which can be an integer value, whos "off" position is also 0.
-### Chord Normalization
+### Generation Controls
 ```
-normalizeChords = 1
+normalizeChords
 ```
-This flag raises the highest base ratio of chords you want to generate to match the Minor chord whos ratios are [10,12,15].
-single ratios inputs are ignored (unison)
+This flag can be 0 (off) or 1 (on) and raises the highest base ratio of the chords you want to generate 1 octave to match the Minor chord whos Just Intonic ratios are [10,12,15]. Without getting into the math (that I don't fully understand) the ratios of the minor chord put it 1 octave above the others relatively speaking so anything lower must be raised to match it so they all play in the same relative octave on the Monomachine. Single ratio inputs are ignored (unison)
+```
+genInversions
+```
+This flag can be 0 (off) or 1 (on) and controls wheather any inversions are generated. If set to 0, none of the other inversionr related flags will do anything.
+```
+inversionLimit 
+```
+3 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
 
-
-```
-genInversions = 0
-inversionLimit = 3 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
 onlyGenXInversion = 0 # 0 will disable this flag. integer number of the only inversion you want to generate. must be below the inversion limit. cannot be used in tandem with onlyGenEvenInversions
 onlyGenEvenInversions = 0 # only generates the even number inversions for each chord. ex root postion, 2nd inversion, 4th inversion. cannot be used in tandem with onlyGenXInversion
 genUp1Octave = 0 # will generate an additional chord that is the root position raised 1 octave
