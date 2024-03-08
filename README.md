@@ -6,7 +6,7 @@ This tool is based on [original code by lucianon](https://github.com/len/SCC), a
 
 ## Usage
 In the "# Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates:
-``
+```
 normalizeChords = 1
 genInversions = 0
 inversionLimit = 3 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
@@ -16,4 +16,4 @@ genUp1Octave = 0 # will generate an additional chord that is the root position r
 
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types
 printGraphsFlag = 1
-``
+```
