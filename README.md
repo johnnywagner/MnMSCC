@@ -40,9 +40,7 @@ After the program completes, there will be a folder containing all of the sample
 
 For example:
 
-**Cho**rdSample0**7**.wav would yield:
-
-**CHO7** as a display name on the Monomachine for an input waveform (and Machinedrum UW)
+**Cho**rdSample0**7**.wav would yield →**CHO7** as a display name on the Monomachine for an input waveform (and Machinedrum UW)
 
 
 While this works well enough as a catchall way to autoname files, you cannot organize the files numerically without the prefix being used to generate a display name for the waveform on the Monomachine. To get around this, the program appends a dummy modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
