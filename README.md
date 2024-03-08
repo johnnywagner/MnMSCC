@@ -27,6 +27,7 @@ onlyGenEvenInversions = 0 # only generates the even number inversions for each c
 genUp1Octave = 0 # will generate an additional chord that is the root position raised 1 octave
 
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types
+```
 printGraphsFlag = 1
 ```
 
