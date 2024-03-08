@@ -1,5 +1,5 @@
-# Uncomment this below pip install if using Jupyter Notebook
-#%pip install pydub
+#Uncomment this below pip install if using Jupyter Notebook
+%pip install pydub
 
 """
 This program creates single-cycle waveforms for just intonation chords
@@ -39,29 +39,11 @@ from pydub import AudioSegment, effects
 from scipy.io.wavfile import read
 import matplotlib.pyplot as plt
 
-
-#globals
-digiProNum = 0
-spacer = '\n█████████████████████████████████████████████████████████████████████████████████████████████████████████\n'
-'''
-'addendumPath' below defines the folder name where the files to add to the end of
-the digipro bank are. This folder needs to be in the same folder as the python code.
-These files can be .wav, .syx, or any other audio file type accepted by C6 that has a file extension length of 3 characters (.wav) &
-can have any naming convention for ordering them, as long as they end in EXACTLY 4
-letters/numbers you want them to show up as on the MnM.
-ie: 01tri1.wav" & "01_signaldescription_saw .syx"
-will generate: 'tri1.wav' & 'saw .wav' respectively.
-notice the space after "saw" on the second one to keep its name 4 characters long.
-'''
-addendumPath = 'userFiles'
-
-
-
 ##########################################
 # Generation Controls & Chord Defintions
 ##########################################
 F0 = 261.6255653005986 # C4= 261.6255653005986  or 261.625565
-SAMPLE_RATE = 48000.0 # 10000 is known good. 44100/22050, 24000,48000
+SAMPLE_RATE = 48000.0 # 10000 is known good. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
 
 #Inversion Parameters
 normalizeChords = 1
@@ -107,35 +89,43 @@ chords = [
 ['un4', [12,15,18,24,27,32]],       # C4,E4,G4,C5,D5,F5
 ['min',  [10,12,15]],               # C minor chord. generates a C min cycle => plays as e min on MnM
 ['mn7', [10,12,15,18]],             # C minor 7 C,Eb,G,Bb
+['n79', [20,24,30,36,45]],          # min 7 add 9  
+['n79', [12,16,19,24,29,36]],       # G bass + Minor 7 add 9
 ['7b5', [5,6,7,9]],                 # Cmin7b5 half-diminished (perfect). Used in Black Cow by Steely Dan
-['nj9',[8,9,16,19,24,36]],          # Cm(maj9)
-['nt4',  [30,36,40,45]],            # C minor triad add 4
-['nt4',  [10,12,15,27]],            # C minor triad add 4 but the 4 is up 1 octave
+['75!', [5,6,7,9]],                 # Cmin7b5 half-diminished (perfect) add octave C. Used in Black Cow by Steely Dan
+['nj9', [8,9,16,19,24,36]],          # Cm(maj9)
+['nt4', [30,36,40,45]],            # C minor triad add 4
+['nt4', [10,12,15,27]],            # C minor triad add 4 but the 4 is up 1 octave
 ['n+9', [20,24,30,45,60]],          # A3+C3+E3+B5+E6
 ['mno', [10,12,15,24,30]],          # C4, Eb4, G4, Eb5, G5 # minor open
 ['un5', [10,12,15,25]],             # C3,Eb3, G3, E4
 ['un6', [10,12,15,25,34]],          # C3, Eb3, G3, E4, A5
-['mn+7',[10,12,15,19]],             # C min add 7 chord 
-['mn+7', [8,12,14,18,23]],          # F3 bass on a minor add 7 (F3, C4, Eb4, G4, B4)
-['mn+7', [12,16,19,24,30]],         # G3 bass on a minor add 7 (G3, C4, Eb4, G4, B4)
-['n79',[20,24,30,36,45]],           # min 7 add 9  
-['n79',[12,16,19,24,29,36]],        # G bass + Minor 7 add 9
+['n+7', [10,12,15,19]],              # C min add 7 chord 
+['n+7', [8,12,14,18,23]],            # F3 bass on a minor add 7 (F3, C4, Eb4, G4, B4)
+['n+7', [12,16,19,24,30]],           # G3 bass on a minor add 7 (G3, C4, Eb4, G4, B4)
 ['jzy', [20,24,30,45,50,67,75,90]], # idk man calling this one jazzy, root chord is definitely minor. (F3,Ab3,C4,G4,A4,D5,E5,G5)
 ['un1', [15,18,20]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
 ['su2', [8,9,12]],                  # sus2
 ['s2!', [4,6,8,9]],                 # csus 2 +c octave + inverted d
-['s2@', [12,16,18,24,27]],          
+['s2@', [12,16,18,24,27]],          # idk G3,C4,D4,G4,A4
 ['s2#', [8,9,12,16,18]],            # C4,D4,G4,C5,D5
 ['su4', [6,8,9]],                   # sus4
-['dom', [4,5,6,7]],               # C7 (harmonic 7)
+['s4!', [6,9,12,16,18]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
+['s4@', [6,8,9,12,16,24]],          # C4,F4,G4,C5,F5,C6
+['s4#', [12,16,18,23]],             # C maj 7th suspended 4th
+['s4#', [12,16,18,23,27]],          # C maj 7th suspended 4th add 9
+['dim', [5,6,7]],                   # perfect diminished
+#['dim', [20,24,29]],               # true diminished?
+['di7', [10,12,14,17]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
+['i7!', [10,12,14,17,20]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
+['di9', [20,24,28,38,45]],          # diminished major 9 chord
+['dom', [4,5,6,7]],                 # C7 (harmonic 7)
 ['do7', [20,25,30,36]],             # ?dominant7
 ['7b5', [25,30,36,45]],             # ?dom7b5
 ['7#9', [20,25,30,36,48]],          # ?dom7#9
 ['do9', [4,5,6,7,9]],               # C9 (harmonic 9)
-['dim', [5,6,7]],                   # perfect diminished
-['di7', [10,12,14,17]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is)
+['un1', [15,18,20]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
 ['hmm', [12,16,17,18]],             # originally listed as "dream" chord
-
 ['un6',[12,15,20,29]],              # C4,E4,A4,Eb5
 
 # 2 note intervals
@@ -155,7 +145,6 @@ chords = [
 #['imp',[1.333333,4.4653563465,6.92929292929]],
 
 #the below chords ratios are too large to work well with the mnm, I found to be uninteresting sounding, or not useful in the context of the mnm
-
 #['mm7', [40,48,60,75]],              # ?minmaj7
 #['smj', [1,3,5]],                  # open Major C4 E5 G6
 #['di2', [20,24,29]],              # diminished
@@ -168,15 +157,6 @@ chords = [
 ]
 
 
-#chords = [['uni', [1]],
-#['maj', [4,5,6]],                  # major
-#['un4', [12,15,18,24,27,32]],       # C4,E4,G4,C5,D5,F5
-#['mj7', [8,10,12,15]],              # major7
-#['mj9', [4,5,6,9]],                 # maj add 9
-#         ]  
-
-
-#######################################################################################
 '''
 the below loop raises a chords ratio to match
 the highest base ratio of chord you want to generate
@@ -184,8 +164,6 @@ Minor [10,12,15] is the odd man out of simple chords and requires
 all other simpler chords/intervals  are pitched up 1 octave to match its pitch
 single ratios inputs are ignored (unison)
 '''
-#######################################################################################
-
 if normalizeChords == 1:
     for chord in chords:
         ratios = chord[1]
@@ -203,6 +181,22 @@ if normalizeChords == 1:
 
 print('Normalized Chord Array:'+str(chords))
 
+###################################
+# Global Variables/Constants
+###################################
+digiProNum = 0
+spacer = '\n█████████████████████████████████████████████████████████████████████████████████████████████████████████\n'
+'''
+'addendumPath' below defines the folder name where the files to add to the end of
+the digipro bank are. This folder needs to be in the same folder as the python code.
+These files can be .wav, .syx, or any other audio file type accepted by C6 that has a file extension length of 3 characters (.wav) &
+can have any naming convention for ordering them, as long as they end in EXACTLY 4
+letters/numbers you want them to show up as on the MnM.
+ie: 01tri1.wav" & "01_signaldescription_saw .syx"
+will generate: 'tri1.wav' & 'saw .wav' respectively.
+notice the space after "saw" on the second one to keep its name 4 characters long.
+'''
+addendumPath = 'userFiles'
 
 #####################
 # Signal Definitions
@@ -508,7 +502,3 @@ print (str(chordWavsGenerated) + ' chords generated per oscillator') # prints nu
 print(str(len(os.listdir(addendumPath)))+' files added from /'+addendumPath+'/')
 print(str(len(os.listdir(oscToGen)))+' files per oscillator to export to C6, must be below 64 for MnM')
 print(spacer)
-
-
-
-
