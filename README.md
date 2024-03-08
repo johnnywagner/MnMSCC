@@ -35,15 +35,17 @@ printGraphsFlag = 1
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types & program changes. It will generate a plot for each waveform so I don't reccomend having this on for generating more than one waveform type at a time.
 
 →
+### Auto Appending User Provided Files
+by default, the program scans 
+
 ### Sending the Generated Waveforms to Elektron's C6 Software
 After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. C6 only uses 4 letter names for each .wav once it send them to a machine, taking the first three and last characters of an input file to use as the display name.
 
 For example:
 
-**Cho**rdSample0**7**.wav would yield →**CHO7** as a display name on the Monomachine for an input waveform (and Machinedrum UW)
+**Cho**rdSample0**7**.wav would yield → **CHO7** as a display name on the Monomachine for an input waveform (This works the same way for the Machinedrum UW)
 
-
-While this works well enough as a catchall way to autoname files, you cannot organize the files numerically without the prefix being used to generate a display name for the waveform on the Monomachine. To get around this, the program appends a dummy modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
+While this works well enough as a catchall way to autoname files, you cannot organize the files numerically without the prefix being used to generate a display name for the waveform on the Monomachine. To get around this, the program appends a dummy modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 keeping their 4 letter name in an arbitrary. I reccomend configuring the root folder (& all subfolders) this program exists in to auto sort files by date modified. From here, all you have to do is drag and drop.
 
 ## Features I Couldn't Figure Out to Impliment:
 * Compressing the waveforms a little bit to increase their percieved loudness. This might be something really easy, but I couldn't figure out an elegant way to do this.
