@@ -7,9 +7,18 @@ This program generates single-cycle just intonation chord waveforms for the Elek
 This tool is based on [original code by lucianon](https://github.com/len/SCC), adding to its functionality & specializing it for use with Elektron's C6 software & Monomachine Synthesizer.
 
 ## Usage
-In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates:
+In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates. They are all either a 0/1 off/on swtich or an integer value, whos "off" position is 0 in the case of `onlyGenXInversion'
 ```
 normalizeChords = 1
+```
+This 
+the highest base ratio of chord you want to generate
+Minor [10,12,15] is the odd man out of simple chords and requires
+all other simpler chords/intervals  are pitched up 1 octave to match its pitch
+single ratios inputs are ignored (unison)
+
+
+```
 genInversions = 0
 inversionLimit = 3 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
 onlyGenXInversion = 0 # 0 will disable this flag. integer number of the only inversion you want to generate. must be below the inversion limit. cannot be used in tandem with onlyGenEvenInversions
