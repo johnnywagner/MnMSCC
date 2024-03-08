@@ -1,6 +1,6 @@
 # THIS README & CODE IS A WIP
 
-# Elektron Monomachine Single Cycle Chord Generator
+# Single Cycle Chord Generator for the Elektron Monomachine 
 
 This program generates single-cycle just intonation chord waveforms for the Elektron Monomachine giving the user control over the generation parameters, waveform type, and inversion/voicing positions to generate. The program will also append user specified files to the end of the output list for quick importing into Elektron's C6 software.
 
@@ -35,6 +35,7 @@ printGraphsFlag = 1
 After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. C6 only uses 4 letter names for each .wav once it send them to a machine, taking the first three and last characters of an input file to use as the display name.
 
 For example:
-**Cho**rdSample0**7**.wav would yield **CHO7** as a display name on the Monomachine for an input waveform (and Machinedrum UW)
+**Cho**rdSample0**7**.wav would yield:
+**CHO7** as a display name on the Monomachine for an input waveform (and Machinedrum UW)
 
 While this works well enough as a catchall way to autoname files, you cannot organize the files numerically without the prefix being used to generate a display name for the waveform on the Monomachine. To get around this, the program appends a dummy modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 in an arbitrary order with out 
