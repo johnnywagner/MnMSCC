@@ -5,7 +5,7 @@ This program generates single-cycle just intonation chord waveforms for the Elek
 This tool is based on [original code by lucianon](https://github.com/len/SCC), adding to its functionality & specializing it for use with Elektron's C6 software & Monomachine Synthesizer.
 
 ## Usage
-In the "# Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates:
+In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates:
 ```
 normalizeChords = 1
 genInversions = 0
