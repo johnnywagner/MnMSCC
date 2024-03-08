@@ -1,5 +1,4 @@
 # Elektron Monomachine Single Cycle Chord Generator
-Single-Cycle Chords
 
 This program generates single-cycle just intonation chord waveforms for the Elektron Monomachine with full control over the generation parameters, waveform type, and inversion positions. The program will also append user specified files to the end of the output list.
 
