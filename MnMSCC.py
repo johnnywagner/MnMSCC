@@ -1,5 +1,5 @@
 #Uncomment this below pip install if using Jupyter Notebook
-%pip install pydub
+#%pip install pydub
 
 """
 This program creates single-cycle waveforms for just intonation chords
@@ -43,33 +43,37 @@ import matplotlib.pyplot as plt
 # Generation Controls & Chord Defintions
 ##########################################
 F0 = 261.6255653005986 # C4= 261.6255653005986  or 261.625565
-SAMPLE_RATE = 48000.0 # 10000 is known good. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
+SAMPLE_RATE = 20000.0 # 10000 is known good. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
 
 #Inversion Parameters
-normalizeChords = 1
+normalizeChords = 0
 genInversions = 0
-inversionLimit = 3 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
-onlyGenXInversion = 0 # 0 will disable this flag. integer number of the only inversion you want to generate. must be below the inversion limit. cannot be used in tandem with onlyGenEvenInversions
+inversionLimit = 2 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
+onlyGenXInversion = 2 # 0 will disable this flag. integer number of the only inversion you want to generate. must be below the inversion limit. cannot be used in tandem with onlyGenEvenInversions
 onlyGenEvenInversions = 0 # only generates the even number inversions for each chord. ex root postion, 2nd inversion, 4th inversion. cannot be used in tandem with onlyGenXInversion
 genUp1Octave = 0 # will generate an additional chord that is the root position raised 1 octave
 
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types
-printGraphsFlag = 1
+printGraphsFlag = 0
 
 oscList = [
-'osc_sin',
+#'osc_sin',
 #'osc_tri',
 #'osc_saw',
 #'osc_sqr',
-#'osc_sawsin',
-#'osc_sqrsin',
+'osc_choir',
+#'osc_voice',
+#'osc_flute',
+#'osc_whistle',
 #'osc_tsp',
-#'osc_test1',
-#'osc_test2',
-#'osc_test3',
+#'osc_tuba',
+#'osc_trumpet',
+#'osc_soft',
 #'osc_harmsin',
+#'osc_harmsin2',
 #'osc_buzzy',
-#'osc_weird',
+#'osc_buzzy2',
+#'osc_distort',
 #'osc_clp',
 #'osc_rnd',
 ]
@@ -84,27 +88,30 @@ chords = [
 ['mj7', [8,10,12,15]],              # major7
 ['mj9', [4,5,6,9]],                 # maj add 9
 ['m+9', [4,5,6,18]],                # maj add 9 but the 9 is up an octave
-['un2',  [4,5,6,8,9]],              # C4,E4,G4,C5,D5
+##['un2',  [4,5,6,8,9]],              # C4,E4,G4,C5,D5
 ['un3',  [4,5,6,8,9,12,18]],        # C4,E4,G4,C5,D5,G5,D6
 ['un4', [12,15,18,24,27,32]],       # C4,E4,G4,C5,D5,F5
 ['min',  [10,12,15]],               # C minor chord. generates a C min cycle => plays as e min on MnM
 ['mn7', [10,12,15,18]],             # C minor 7 C,Eb,G,Bb
-['n79', [20,24,30,36,45]],          # min 7 add 9  
-['n79', [12,16,19,24,29,36]],       # G bass + Minor 7 add 9
+['m7»', [10,12,15,18,30]],          # C minor 7 add g octave C,Eb,G,Bb,G
+['m7+', [10,12,15,18,24]],          # C minor 7 C,Eb,G,Bb,Eb
+##['7++', [10,12,15,18,24,30]],      # C minor 7 add eb & g octave. C,Eb,G,Bb,Eb,G
 ['7b5', [5,6,7,9]],                 # Cmin7b5 half-diminished (perfect). Used in Black Cow by Steely Dan
-['75!', [5,6,7,9]],                 # Cmin7b5 half-diminished (perfect) add octave C. Used in Black Cow by Steely Dan
-['nj9', [8,9,16,19,24,36]],          # Cm(maj9)
-['nt4', [30,36,40,45]],            # C minor triad add 4
-['nt4', [10,12,15,27]],            # C minor triad add 4 but the 4 is up 1 octave
-['n+9', [20,24,30,45,60]],          # A3+C3+E3+B5+E6
+##['mn9', [20,24,30,36,45]],         # minor 9th [20,24,30,36,45]]
+##['m9m', [10,12,15,18,22.5]],       # minor 9th [20,24,30,36,45]]
+##['n79', [20,24,30,36,45]],         # min 7 add 9  
+['b79', [12,16,19,24,29,36]],       # G bass + Minor 7 add 9
+['nj9', [8,9,16,19,24,36]],         # Cm(maj9)
+##['nt4', [30,36,40,45]],            # C minor triad add 4
+['n4 ', [10,12,15,27]],             # C minor triad add 4 but the 4 is up 1 octave
+##['n+9', [20,24,30,45,60]],         # A3+C3+E3+B5+E6 too big of ratios
 ['mno', [10,12,15,24,30]],          # C4, Eb4, G4, Eb5, G5 # minor open
 ['un5', [10,12,15,25]],             # C3,Eb3, G3, E4
 ['un6', [10,12,15,25,34]],          # C3, Eb3, G3, E4, A5
 ['n+7', [10,12,15,19]],              # C min add 7 chord 
-['n+7', [8,12,14,18,23]],            # F3 bass on a minor add 7 (F3, C4, Eb4, G4, B4)
-['n+7', [12,16,19,24,30]],           # G3 bass on a minor add 7 (G3, C4, Eb4, G4, B4)
-['jzy', [20,24,30,45,50,67,75,90]], # idk man calling this one jazzy, root chord is definitely minor. (F3,Ab3,C4,G4,A4,D5,E5,G5)
-['un1', [15,18,20]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
+##['n72', [8,12,14,18,23]],            # F3 bass on a minor add 7 (F3, C4, Eb4, G4, B4)
+['n73', [12,16,19,24,30]],           # G3 bass on a minor add 7 (G3, C4, Eb4, G4, B4)
+##['jzy', [20,24,30,45,50,67,75,90]], # idk man calling this one jazzy, root chord is definitely minor. (F3,Ab3,C4,G4,A4,D5,E5,G5)
 ['su2', [8,9,12]],                  # sus2
 ['s2!', [4,6,8,9]],                 # csus 2 +c octave + inverted d
 ['s2@', [12,16,18,24,27]],          # idk G3,C4,D4,G4,A4
@@ -113,18 +120,19 @@ chords = [
 ['s4!', [6,9,12,16,18]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
 ['s4@', [6,8,9,12,16,24]],          # C4,F4,G4,C5,F5,C6
 ['s4#', [12,16,18,23]],             # C maj 7th suspended 4th
-['s4#', [12,16,18,23,27]],          # C maj 7th suspended 4th add 9
+['s49', [12,16,18,23,27]],          # C maj 7th suspended 4th add 9
 ['dim', [5,6,7]],                   # perfect diminished
-#['dim', [20,24,29]],               # true diminished?
 ['di7', [10,12,14,17]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
 ['i7!', [10,12,14,17,20]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
-['di9', [20,24,28,38,45]],          # diminished major 9 chord
-['dom', [4,5,6,7]],                 # C7 (harmonic 7)
-['do7', [20,25,30,36]],             # ?dominant7
-['7b5', [25,30,36,45]],             # ?dom7b5
-['7#9', [20,25,30,36,48]],          # ?dom7#9
-['do9', [4,5,6,7,9]],               # C9 (harmonic 9)
-['un1', [15,18,20]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
+##['di9', [20,24,28,38,45]],          # diminished major 9 chord
+['7  ', [4,5,6,7]],                 # C7 (harmonic 7)
+['9  ', [4,5,6,7,9]],               # C9 (harmonic 9)
+['9+o', [4,5,6,7,9,12]],            # C9 (harmonic 9) + G
+['9++', [4,5,6,7,9,12,14]],
+##['do7', [10,12.5,15,18]],          # ?dominant7 [20,25,30,36]
+##['7b5', [25,30,36,45]],             # ?dom7b5
+##['7#9', [20,25,30,36,48]],         # ?dom7#9
+['blz', [15,18,20]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
 ['hmm', [12,16,17,18]],             # originally listed as "dream" chord
 ['un6',[12,15,20,29]],              # C4,E4,A4,Eb5
 
@@ -150,9 +158,22 @@ chords = [
 #['di2', [20,24,29]],              # diminished
 #?['min-1', [12,15,20]],            # F Minor chord. generates a F min cycle => plays as ? on MnM
 #?['min-2', [30,20,24]],            #   Minor chord. generates a F min cycle => plays as ? on MnM
+##['dim', [20,24,29]],               # true diminished?
 
 # root note
 ['uni', [1]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+# ['ui0', [1,4]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+# ['u0+', [1,8]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+ ['ui1', [1,2,4]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+# ['ui2', [1,2,4,8]],     #ehh                   # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+ ['ui3', [1,16]],       #like this one                 # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+# ['ui4', [1,2,16]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+ ['ui5', [1,4,16]],     #like this one                   # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+ ['ui6', [1,8,16]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+# ['ui7', [1,2,4,16]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+ ['ui8', [1,2,4,8,16]],                        # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+# #['ui5', [1,32]],     #too big                   # C note. set the ratio to 1 for F0 to 4 to raise it 2 octaves, 8 to raise 3
+
 
 ]
 
@@ -185,6 +206,8 @@ print('Normalized Chord Array:'+str(chords))
 # Global Variables/Constants
 ###################################
 digiProNum = 0
+home = os.getcwd()
+print('home = '+home)
 spacer = '\n█████████████████████████████████████████████████████████████████████████████████████████████████████████\n'
 '''
 'addendumPath' below defines the folder name where the files to add to the end of
@@ -232,17 +255,27 @@ class oscillators(object):
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
       return v
    
-    def osc_sawsin(x, partials):
+    def osc_choir(x, partials):
       k = pi/2/partials
       v = 0.0
-      for n in range(1,5): #change send value of range to change how many bumps in the wave
+      for n in range(1,3): #change send value of range to change how many bumps in the wave
+        m = cos((n-1)*k)
+        m *= m
+        v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
+      v = v / 2
+      return v
+    
+    def osc_voice(x, partials):
+      k = pi/2/partials
+      v = 0.0
+      for n in range(1,6): #change send value of range to change how many bumps in the wave
         m = cos((n-1)*k)
         m *= m
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
       v = v / 2
       return v
 
-    def osc_sqrsin(x, partials):
+    def osc_flute(x, partials):
       k = pi/2/partials
       v = 0.0
       for n in range(1,4): #change send value of range to change how many bumps in the wave
@@ -251,31 +284,56 @@ class oscillators(object):
         m *= m
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
       return v
+    
+    def osc_flute2(x, partials):
+      k = pi/2/partials
+      v = 0.0
+      for n in range(1,3): #change send value of range to change how many bumps in the wave
+        if n%2==0: continue
+        m = cos((n-1)*k)
+        m *= m
+        v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
+      return v
    
     def osc_tsp(x,partials): #starts as a triangle and rounds out in the second half, calling it "triangle sine pulse" or tsp. Sounds cool
-        ssp=  0.79*  ( (asin(cos(x/2 - 0.463) ) )**2) - 1.23
+        max = 1
+        ssp=  0.78*  ( (asin(cos(x/2 - 0.463) ) )**2) - 1.0002
+        if ssp <= -max:
+            ssp = -max
+        if ssp >= max:
+            ssp = max
         return ssp
 
-    def osc_test1(x,partials):
+    def osc_tuba(x,partials):
         return (sin(1+2*x+sin(-1+x+sin(x)))+sin(x))/2
 
-    def osc_test2(x,partials):
+    def osc_trumpet(x,partials):
         return (sin(1+2*x+sin(1+x+sin(x)))+sin(x))/2
 
-    def osc_test3(x,partials):
+    def osc_soft(x,partials):
         return 0.2+(sin(1+2*x+sin(2*x+sin(x)))+sin(x))/1.8
 
     def osc_harmsin(x,partials):
         x /= 2
         y=3 # change this to get interesting varitations of the wave, 3 is pretty sounding, 8 and above add lots of noise
         return -(sin((2*x+sin((33+sin(y*x))))+2.13))
+    
+    def osc_harmsin2(x,partials):
+        x /= 2
+        y=9 # change this to get interesting varitations of the wave, 3 is pretty sounding, 8 and above add lots of noise
+        return -(sin((2*x+sin((33+sin(y*x))))+2.13))
 
     def osc_buzzy(x,partials):
         x /= 2
-        y=4 # change this to get interesting varitations of the wave, 4 is pretty sounding, 8 and above add lots of noise
+        y= 8 # change this to get interesting varitations of the wave, 4 is pretty sounding, 8 and above add lots of noise
+        return -0.62*asin(sin((2*x+sin((33+sin(y*x))))+2.13))
+    
+    def osc_buzzy2(x,partials):
+        x /= 2
+        y= 4 # change this to get interesting varitations of the wave, 4 is pretty sounding, 8 and above add lots of noise
         return -0.62*asin(sin((2*x+sin((33+sin(y*x))))+2.13))
 
-    def osc_weird(x,partials):
+    def osc_distort(x,partials):
         return sin(1+x+sin(1+3*x+sin(9*x)))
    
     def osc_rnd(x, partials):
@@ -313,6 +371,12 @@ def ratios_string(ratios):
 
 def write_chord_sample(filename, f0, ratios, func): #no idea how this one works but it works
     global digiProNum
+    
+    i = 1
+    while os.path.isfile(filename) == True:
+        print(filename+' already exists')
+        filename = filename[:-4]+' ('+str(i)+').wav'
+        i += 1
     wav = wave.open(filename,'w')
     wav.setnchannels(1)
     wav.setsampwidth(2)
@@ -360,6 +424,7 @@ def compress_dyanmics(filename):  #try turning off the low pass with compressor 
 
 
 def write_all_chords(func):
+    os.chdir(home)
     path = func.__name__
     if not os.path.exists(path):
         os.makedirs(path)
@@ -418,9 +483,12 @@ def write_all_chords(func):
 # this function adds files from a user defined directory to the end of the generated file list for the MnM
 # this can be useful to add a few extra monophonic tones to the end of the digipro bank such as a noise oscilator and some bass notes
 def append_other_waves(func,addendumPath):
+    os.chdir(home)
     global digiProNum
+    print('in append '+os.getcwd())
     if not os.path.exists(addendumPath):
         os.makedirs(addendumPath)
+        print('test')
     path = func.__name__
     #print(path+'/')
     #print(addendumPath+'/')
@@ -437,16 +505,19 @@ def append_other_waves(func,addendumPath):
 
 # Oscillator Design/ Debugging Graph Generation
 def printGraphs(func):
+    os.chdir(home)
     path = os.getcwd()+'/'+func.__name__
+    print(os.getcwd())
     os.chdir(path)
-    filesToPlot = os.listdir(path)
+    print(os.getcwd())
+    filesToPlot = os.listdir(os.getcwd())
     filesToPlot.sort(key=lambda x: os.path.getmtime(x))
     print('filesToPlot='+str(filesToPlot)+'\n')
     i = 0
     gs = sqrt(len(filesToPlot)) #find square root of total samples to begin building a NxN grid
     gs = ceil(gs) # round up the grid size
     print(str(gs)+'x'+str(gs)+' grid for all samples')
-    figure, axis = plt.subplots(gs, gs,figsize=(gs*9,gs*7),squeeze=False) #
+    figure, axis = plt.subplots(gs, gs,figsize=(gs*5,gs*4),squeeze=False) #
     plt.rc('font', size=8)
     plt.rc('axes', titlesize=8)     # fontsize of the axes title
     plt.rc('axes', labelsize=4)     # fontsize of the x and y labels
@@ -475,7 +546,8 @@ def printGraphs(func):
        
     plt.subplots_adjust(wspace=.2, hspace=.3)
     plt.show()
-    os.chdir('/') #close directory to release read onyl latch on files
+    plt.close()
+    #os.chdir('/') #close directory to release read onyl latch on files
 
 
 
@@ -491,14 +563,16 @@ for oscToGen in oscList:
     if os.path.exists(func.__name__) and os.path.isdir(func.__name__): #delete chords & export dir if they already exist
         shutil.rmtree(func.__name__)
     write_all_chords(func)
-    if printGraphsFlag == 1: printGraphs(func)
+    if printGraphsFlag == 1:
+        printGraphs(func)
+    chordWavsGenerated = digiProNum # gets number of files generated before appending pre-exising files
     append_other_waves(func,addendumPath)
 
-chordWavsGenerated = digiProNum # gets number of files generated before appending pre-exising files
 print(spacer)
 print('Oscillators generated: '+ str(oscList))
 print (str(len(chords)) + ' chord types')
 print (str(chordWavsGenerated) + ' chords generated per oscillator') # prints number of chords in folder/length of digipronum before files are appended
 print(str(len(os.listdir(addendumPath)))+' files added from /'+addendumPath+'/')
-print(str(len(os.listdir(oscToGen)))+' files per oscillator to export to C6, must be below 64 for MnM')
+print(os.getcwd())
+print(str(digiProNum)+' files per oscillator to export to C6, must be below 64 for MnM')
 print(spacer)
