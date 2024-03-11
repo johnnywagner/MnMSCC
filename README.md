@@ -8,6 +8,16 @@ This tool is based on [original code by lucianon,](https://github.com/len/SCC) a
 
 ## Usage
 In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates. They are all off/on swtiches except `onlyGenXInversion` which can be an integer value, whos "off" position is also 0.
+### Globals
+'addendumPath' below defines the folder name where the files to add to the end of
+the digipro bank are. This folder needs to be in the same folder as the python code.
+These files can be .wav, .syx, or any other audio file type accepted by C6 that has a file extension length of 3 characters (.wav) &
+can have any naming convention for ordering them, as long as they end in EXACTLY 4
+letters/numbers you want them to show up as on the MnM.
+ie: 01tri1.wav" & "01_signaldescription_saw .syx"
+will generate: 'tri1.wav' & 'saw .wav' respectively.
+notice the space after "saw" on the second one to keep its name 4 characters long.
+
 ### Generation Controls
 ```
 normalizeChords =
