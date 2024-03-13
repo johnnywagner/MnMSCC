@@ -31,7 +31,7 @@ This flag can be 0 (off) or 1 (on) and controls wheather any inversions are gene
 ```
 genUp1Octave = 
 ```
-0 # will generate an additional chord that is the root position raised 1 octave
+This will generate an additional chord that is the root position raised 1 octave
 
 ```
 printGraphsFlag = 1
@@ -40,7 +40,7 @@ printGraphsFlag = 1
 
 →
 ### Auto Appending User Provided Files
-by default, the program scans 
+by default, the program scans a folder named "userFiles" in the same directory as the code and appends whatever single cycle .wavs or .syx files you'd like to the end of the generated list.
 
 ### Sending the Generated Waveforms to Elektron's C6 Software
 After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. C6 only uses 4 letter names for each .wav once it send them to a machine, taking the first three and last characters of an input file to use as the display name.
