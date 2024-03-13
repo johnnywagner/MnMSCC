@@ -46,7 +46,7 @@ SAMPLE_RATE = 10005.0 # 10005 is known good, idk why. common sample rates you ma
 
 #Inversion Parameters
 normalizeChords = 1
-genInversions = 0
+genInversions = 1
 smartInvert = 1
 genCustomInversions = 1
 genUp1Octave = 0 # will generate an additional chord that is the root position raised 1 octave
@@ -87,7 +87,7 @@ oscList = [
 chords = [
 #major chords
 ['maj', [4,5,6],             [2,]],                   # major
-['mj7', [8,10,12,15],        [2,3]],              # major7
+['mj7', [8,10,12,15],        [2,]],              # major7
 ['mj9', [8,10,12,15,18],        [2,3]],              # major7
 ['m79', [4,5,6,9],           [2,]],                 # maj add 9
 ['mjo', [4,5,6,10,12],       []],              #major open C4, E4, G4, E5, G5
@@ -117,12 +117,15 @@ chords = [
 
 #sus2 chords
 ['su2', [8,9,12],[2]],                  # sus2
-['7s2', [8,9,12,14],[]],               # C7sus2 C,D,G,Bb
-['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
+['7s2i', [12,16,19,21]],             
+['7s+i', [12,16,19,21,24]],
+#['7s2', [8,9,12,14],[]],               # C7sus2 C,D,G,Bb
+#['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
 ['s2!', [4,5,6,8,9],[]],                 # csus 2 +c octave + inverted d
-['s2%', [3,4,5,6,8,9],[]],                 # csus 2 +c octave + inverted d
+['s2q', [3,4,5,6,8,9],[]],                 # csus 2 +c octave + inverted d
 ['6s2', [16,18,24,27],[]],             # C6sus2 CDGA
 ['s2@', [12,16,18,24,27],[]],          # idk G3,C4,D4,G4,A4
+
 #sus4 chords 
 ['su4', [6,8,9],[2]],                   # sus4
 ['7s4i',[15,18,20,27],[]],            # C7sus4/G aka C7sus4 inverted on G
@@ -144,11 +147,12 @@ chords = [
 #Augmented chords
 ['aug',[16,20,25],[]],                #C,E,G#
 ['au7',[16,20,25,28],[]],             #C,E,G#,Bb
-['au9',[16,20,25,28,36],[]],          #C,E,G#,Bb,
+['au9',[16,20,25,28,36],[]],          #C,E,G#,Bb
+#Number Chords
 ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
-#['9 2',  [8,9,10,12,14], [] ],
+#['9 2',[8,9,10,12,14], [] ],
 ['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
 ['blz', [15,18,20],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
 ['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
@@ -549,7 +553,7 @@ def printGraphs(path):
 # .Wav File Generation
 #######################
 allOscillators = [func for func in list(oscillators.__dict__.keys()) if callable(getattr(oscillators(), func)) and not func.startswith("__")]
-print('All Oscillators: '+str(allOscillators))
+print(str(len(allOscillators))+' Oscillators: '+str(allOscillators))
 for osc in allOscillators:
     if os.path.exists(osc) and os.path.isdir(osc): #delete chords & export dir if they already exist
         shutil.rmtree(osc)
