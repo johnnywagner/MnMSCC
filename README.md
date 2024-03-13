@@ -27,13 +27,7 @@ This flag can be 0 (off) or 1 (on) and raises the highest base ratio of the chor
 genInversions =
 ```
 This flag can be 0 (off) or 1 (on) and controls wheather any inversions are generated. If set to 0, none of the other inversionr related flags will do anything.
-```
-inversionLimit =
-```
-3 # integer number of inversions for the program to generate. set to value 99 to disable the limit.
 
-onlyGenXInversion = 0 # 0 will disable this flag. integer number of the only inversion you want to generate. must be below the inversion limit. cannot be used in tandem with onlyGenEvenInversions
-onlyGenEvenInversions = 0 # only generates the even number inversions for each chord. ex root postion, 2nd inversion, 4th inversion. cannot be used in tandem with onlyGenXInversion
 ```
 genUp1Octave = 
 ```
