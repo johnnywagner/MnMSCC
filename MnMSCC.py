@@ -8,7 +8,7 @@ Original Code by:
 2020/4/18, Luciano Notarfrancesco, github.com/len
 
 Monomachine Adaptation & Additional Signal types
-2024/2/28 , JW github.com/
+2024// , JW github.com/johnnywagner/
 
 A useful Just Intonation webapp for use in tandem with this program:
 https://justintonate.com
@@ -117,8 +117,8 @@ chords = [
 
 #sus2 chords
 ['su2', [8,9,12],[2]],                  # sus2
-['7s2i', [12,16,19,21]],             
-['7s+i', [12,16,19,21,24]],
+['7s2i', [12,16,19,21]],                #C7sus2/D
+['7s+i', [12,16,19,21,24]],             #C7sus2/D add d up an octave
 #['7s2', [8,9,12,14],[]],               # C7sus2 C,D,G,Bb
 #['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
 ['s2!', [4,5,6,8,9],[]],                 # csus 2 +c octave + inverted d
@@ -154,7 +154,7 @@ chords = [
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
 #['9 2',[8,9,10,12,14], [] ],
 ['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
-['blz', [15,18,20],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
+['blz', [15,18,20],[2]],                # Bluezy chord. C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
 ['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
 
 # Weirdness below, try experimenting with non integer ratios for horizontally clipping chords
