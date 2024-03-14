@@ -36,7 +36,7 @@ baseEpoch = 315532800
 epochInc = 31536000
 spacer = '\n█████████████████████████████████████████████████████████████████████████████████████████████████████████\n'
 addendumPath = 'userFiles'
-uniPath = 'unison waves'
+uniPath = 'Unison Waves'
 
 ##########################################
 # Generation Controls & Chord Defintions
@@ -157,9 +157,12 @@ chords = [
 ['aug',[16,20,25],[]],                #C,E,G#
 ['au7',[16,20,25,28],[]],             #C,E,G#,Bb
 ['au9',[16,20,25,28,36],[]],          #C,E,G#,Bb,
+
+    
 ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
+['4¥5',[6,9,10,12,16],[]],            #F/G with a C bass note
 #['9 2',  [8,9,10,12,14], [] ],
 ['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
 ['blz', [15,18,20,27],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
