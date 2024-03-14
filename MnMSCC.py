@@ -1,4 +1,12 @@
 '''
+to do:
+* decide on final chord list. just need to make cuts and decisoons. I definitelt want a few inversions in there.
+* clean up code section by section
+* clean up github readme
+* make final post to elektronauts
+'''
+
+'''
 This program creates single-cycle waveforms for just intonation chords
 for the Elektron Monomachine (MnM) MK2 models based on Luciano Notarfrancesco's original code.
 The intended usage is to set your parameters in the drag prepared files this program outputs into Elektron's C6 sysex software
@@ -41,17 +49,15 @@ uniPath = 'Unison Waves'
 ##########################################
 # Generation Controls & Chord Defintions
 ##########################################
-F0 = 261.625565 # C4= 261.6255653005986  or 261.625565
-SAMPLE_RATE = 10005.0 # 10005 is known good, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
+F0 = 261.6255653005986 # C4= 261.6255653005986  or 261.625565
+SAMPLE_RATE = 10005.0 # 10005 works well for the mnm, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
 
 #Inversion Parameters
 normalizeChords = 1
-genInversions = 0
+genInversions = 1
 smartInvert = 1
 genCustomInversions = 1
-genUp1Octave = 0 # will generate an additional chord that is the root position raised 1 octave
-
-#turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types
+genUp1Octave = 0 
 printGraphsFlag = 0
 
 
@@ -87,9 +93,9 @@ oscList = [
 chords = [
 #major chords
 ['maj', [4,5,6],             [2,]],                   # major
-['mj7', [8,10,12,15],        [2,3]],              # major7
+['mj7', [8,10,12,15],        [2,3]],              # major7 3rd inversion is F/E
 ['mj9', [8,10,12,15,18],        [2,3]],              # major9
-['mj11', [8,10,12,15,18,23],        [2,3]],              # major7
+['mj11',[8,10,12,15,18,23],        [2,3]],              # major7
 ['m79', [4,5,6,9],           [2,]],                 # maj add 9
 ['mjo', [4,5,6,10,12],       []],              #major open C4, E4, G4, E5, G5
 ['mor', [4,5,6,8,12],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
@@ -97,7 +103,7 @@ chords = [
 ['jor', [4,5,6,8,9,12,18],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
 ['j06', [4,5,6,8,9,12,16,18],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
 ['m+9', [4,5,6,18],          [2,]],                # maj add 9 but the 9 is up an octave
-['7#11', [8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
+['7#11',[8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
 ['6  ',[12,15,18,20], [3] ],                #C6 C,E,G,A     third inversion is F/D
 
 #minor chords
@@ -107,7 +113,7 @@ chords = [
 # ['gmin', [6,7,9], []],
 ['mn7', [10,12,15,18],       [2,3]],               # C minor chord
 ['mn+7',[10,12,15,19], [] ],
-['mn9',[10,12,15,18,23],[]],
+['mn9',[10,12,15,18,23],[]],                   # true C minor 9
 ['mn11',[10,12,15,18,23,27],[]],               # true C minor 9 add f octave C,Eb,G,Bb,f
 ['m11', [10,12,15,18,27],    [2,3]],          # C minor 7 add f octave C,Eb,G,Bb,f
 ['m7e', [10,12,15,18,24],    []],          # C minor 7 C,Eb,G,Bb,Eb
@@ -116,7 +122,7 @@ chords = [
 ['n73', [12,16,19,24,30],[]],           # G3 bass on a minor add 7 (G3, C4, Eb4, G4, B4)
 ['7++', [10,12,15,18,24,30], []],     # C minor 7 add eb & g octave. C,Eb,G,Bb,Eb,G
 ['b79', [12,16,19,24,29,36],[]],        # G bass + Minor 7 add 9
-['7b5', [5,6,7,9],           [2,]],     # Cmin7b5 half-diminished (perfect). Used in Black Cow by Steely Dan
+['7b5', [5,6,7,9],           [2,]],     # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
 ['un6',[12,15,20,29], [] ],              # C4,E4,A4,Eb5
 ['nj9', [8,9,16,19,24,36],[]],          # Cm(maj9)
 #['un6', [10,12,15,25,34],[]],           # C3, Eb3, G3, E4, A5
@@ -125,25 +131,27 @@ chords = [
 #['un5', [10,12,15,25],[2,]],              # C3,Eb3, G3, E4
 
 #sus2 chords
-['su2', [8,9,12],[2]],                  # sus2
-['7s2', [8,9,12,14],[]],               # C7sus2 C,D,G,Bb
+['su2', [8,9,12],[2]],                  #  sus2
+['7s2i',[16,19,21,24],[]],            # C7sus2/G  also [6,7,8,9] 
+['7s2i',[16,19,21,24,32],[]],            # C7sus2/G  add G up 1 octave
+#['7s2', [8,9,12,14],[]],               # C7sus2 C,D,G,Bb
 ['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
-['s2!', [4,5,6,8,9],[]],                 # csus 2 +c octave + inverted d
-['s2%', [3,4,5,6,8,9],[]],                 # csus 2 +c octave + inverted d
+['s2!', [4,5,6,8,9],[]],               # csus 2 +c octave + inverted d
+['s2q', [3,4,5,6,8,9],[]],             # csus 2 +c octave + inverted d
 ['6s2', [16,18,24,27],[]],             # C6sus2 CDGA
 ['s2@', [12,16,18,24,27],[]],          # idk G3,C4,D4,G4,A4
 
 #sus4 chords 
 ['su4', [6,8,9],[2]],                   # sus4
-['7s4i',[15,18,20,27],[]],            # C7sus4/G aka C7sus4 inverted on G
-['7s41',[15,18,20,27,30],[]],            # C7sus4/G aka C7sus4 inverted on G
-['7s42',[15,18,20,27,34],[]],            # C7sus4/G aka C7sus4 inverted on G
-#['7s4', [12,16,18,21],[]],             # C7sus4
-#['7s4', [12,16,18,23,27],[]],             # C7sus4
-#['un2',  [4,5,6,8,9],[]],             # C4,E4,G4,C5,D5
-['un4', [12,15,18,24,27,32], [3,4]],   # C4,E4,G4,C5,D5,F5 this sounds more sus than major
 ['s4!', [6,9,12,16,18],[]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
 ['s4@', [6,8,9,12,16,24],[]],          # C4,F4,G4,C5,F5,C6
+['7s4i',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
+['7s41',[15,18,20,27,30],[]],          # C7sus4/G aka C7sus4 inverted on G add g up 1 octave
+['7s42',[15,18,20,27,34],[]],          # C7sus4/G aka C7sus4 inverted on G
+#['7s4', [12,16,18,21],[]],            # C7sus4
+#['7s4', [12,16,18,23,27],[]],         # C7sus4
+#['un2',  [4,5,6,8,9],[]],             # C4,E4,G4,C5,D5
+['un4', [12,15,18,24,27,32], [3,4]],   # C4,E4,G4,C5,D5,F5 this sounds more sus than major
 ['s4#', [12,16,18,23],[]],             # C maj 7th suspended 4th
 ['s49', [12,16,18,23,27],[]],          # C maj 7th suspended 4th add 9
 ['9s4',[12,18,21,27,32],[]],           # C9sus4 open voicing C4,G4,Bb4,D5,F5
@@ -151,22 +159,22 @@ chords = [
 #diminished chords
 ['dim', [5,6,7],[]],                   # perfect diminished
 ['di7', [10,12,14,17],[]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
-['i7!', [10,12,14,17,20],[]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
+['i7+', [10,12,14,17,20],[]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
 
 #Augmented chords
 ['aug',[16,20,25],[]],                #C,E,G#
 ['au7',[16,20,25,28],[]],             #C,E,G#,Bb
-['au9',[16,20,25,28,36],[]],          #C,E,G#,Bb,
-
+['au9',[16,20,25,28,36],[]],          #C,E,G#,Bb
     
+#Number/other Chords
 ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
-['4¥5',[6,9,10,12,16],[]],            #F/G with a C bass note
+['4¥5', [6,9,10,12,16],[]],            #F/G with a C bass note monomachine turns ¥ into a percent sign (closests to slash I could find)
 #['9 2',  [8,9,10,12,14], [] ],
 ['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
 ['blz', [15,18,20,27],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
-['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
+#['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
 
 # Weirdness below, try experimenting with non integer ratios for horizontally clipping chords
 #['imp',[1.333333,4.4653563465,6.92929292929]],
@@ -192,15 +200,6 @@ chords = [
 
 ]
 
-#chords = [
-#['uniz', [1], [2,]],                   # major
-#['uni2', [1,16], []],                   # major
-#['uni3', [1,3], []],                   # major
-#['abc', [1,5,6], [2,]],                   # major
-#['wxyz', [3,5,6], []],                   # major
-#]
-
-
 if normalizeChords == 1:
     for chord in chords:
         ratios = chord[1]
@@ -217,7 +216,6 @@ print('Normalized Chord Array:'+str(chords))
 #####################
 #a quick note, if you plan on designing a new wave type, it cannot return a value larger than 1, else the wav file cannot be written
 class oscillators(object):
-       
     def osc_sine(x, partials):
       return sin(x)
 
@@ -428,10 +426,10 @@ def write_all_chords(func):
         ratios = chord[1]
         customInversions = chord[2]
         print('\nGENERATING '+chord[0])
-        #skip everything for unison waves
-        if len(ratios) == 1 or len(customInversions) == 0 or ratios[0] == 1:
+        #skip everything for unison waves or tracks with no programmed inversions in chord[2]
+        if len(ratios) == 1 or len(customInversions) == 0 or genInversions == 0:
             name = chord[0][:4]
-            print('in loop '+name)
+            print('no inversions for '+name)
             filename = path+'/'+name+'.wav'
             write_chord_sample(filename, F0 / ratios[0], ratios, func)
             continue
@@ -439,19 +437,16 @@ def write_all_chords(func):
             filename = path+'/'+name+'0.wav'
         write_chord_sample(filename, F0 / ratios[0], ratios, func) # root position, root at 0
 
-        #print('largest ratio / smallest ratio = '+str(ratios[len(ratios)-1]/ratios[0]))
-
         inversionFactor=2
         if smartInvert == 1:
             while(inversionFactor <= ratios[len(ratios)-1]/ratios[0]):
                 inversionFactor*=2
-            #print('smart power = '+str(inversionFactor))
        
         #Do all of the inversion generation logic
         if genInversions == 1:
             print('GENERATING INVERSIONS:')
             if genCustomInversions == 1:
-                print('Custom Inversions for '+name+'are '+str(customInversions))
+                print('Custom Inversions for '+name+' are '+str(customInversions))
             inversionCount = 1
             for position in range(1,len(ratios)): # second value in range controls how many inversions are generated. len(ratios) will generate all inversions
                 inversion = list(map(lambda ratio: ratio*inversionFactor, ratios[:position]))+ratios[position:]
@@ -472,21 +467,18 @@ def write_all_chords(func):
                 for ratio in ratios:
                     ratiosUp1Octave.append(ratio * 2)
                 filename = path+'/'+name+'+.wav'
-                #print('doubled root ratios: '+str(ratiosUp1Octave))
                 write_chord_sample(filename, F0 / ratios[0], ratiosUp1Octave, func)
-            #print('\n')
 
 
 def write_all_unison():
-    print('in write all unison '+os.getcwd())
-    print(uniPath)
-    print('/'+uniPath+'/')
+    global allOscillators
+    print('\n'+str(len(allOscillators))+' Oscillators To Generate. Full List: '+str(allOscillators))
     if os.path.exists(uniPath) and os.path.isdir(uniPath): #delete chords & export dir if they already exist
         shutil.rmtree(uniPath)
-        print('deleted unison export path')
+        #print('deleted /'+uniPath+'/ path')
     if not os.path.exists(uniPath):
         os.makedirs(uniPath)
-        print('made unipath directory')
+        #print('made /'+uniPath+'/ directory')
     global digiProNum
     digiProNum = 0
     #os.chdir(home)
@@ -494,22 +486,18 @@ def write_all_unison():
     for oscToGen in allOscillators:
         func = getattr(oscillators, oscToGen)
         funcStr = func.__name__.replace('osc_','')+'.wav'
-        print(funcStr)
         write_chord_sample(uniPath+'/'+funcStr, F0, [1], func)
 
 
 # this function adds files from a user defined directory to the end of the generated file list for the MnM
 # this can be useful to add a few extra monophonic tones to the end of the digipro bank such as a noise oscilator and some bass notes
 def append_other_waves(func,addendumPath):
+    print('\n')
     global digiProNum
-    print('in append '+os.getcwd())
-    if not os.path.exists(addendumPath):
-        os.makedirs(addendumPath)
+    if not os.path.exists(addendumPath): os.makedirs(addendumPath)
     path = func.__name__
     filesToAppend = os.listdir(addendumPath+'/')
-    #print('Unsorted filesToAppend='+str(filesToAppend)+'\n')
     filesToAppend = sorted(filesToAppend)
-    #print('Sorted filesToAppend='+str(filesToAppend)+'\n')
     for fileToAppend in filesToAppend:
         truncFileName = fileToAppend[-8:] #chop off everything except 1234.XYZ from file name
         truncFileName = truncFileName.replace('_','') #if the desired appeneded file is only 3 letters ie tri, remove leading underscore
@@ -533,11 +521,9 @@ def printGraphs(path):
     plt.rc('axes', titlesize=8)     # fontsize of the axes title
     plt.rc('axes', labelsize=4)     # fontsize of the x and y labels
     figure.suptitle('samples',y=-.01)
-
     row = 1
     col = 1
     gridControl = gs
-
     while i < len(filesToPlot):
         filename = filesToPlot[i]
         input_data = read(path+'/'+filename)
@@ -553,19 +539,16 @@ def printGraphs(path):
             col = 1
         else:
             col +=1
-        i+=1
-       
+        i+=1  
     plt.subplots_adjust(wspace=.2, hspace=.3)
     plt.show()
     plt.close()
-    #os.chdir('/') #close directory to release read onyl latch on file
 
 
 #######################
 # .Wav File Generation
 #######################
 allOscillators = [func for func in list(oscillators.__dict__.keys()) if callable(getattr(oscillators(), func)) and not func.startswith("__")]
-print('All Oscillators: '+str(allOscillators))
 for osc in allOscillators:
     if os.path.exists(osc) and os.path.isdir(osc): #delete chords & export dir if they already exist
         shutil.rmtree(osc)
@@ -586,13 +569,11 @@ for oscToGen in oscList:
 write_all_unison()
 #printGraphs(uniPath)
 
-
 if len(oscList) != 0:
     print(spacer)
     print('Oscillators generated: '+ str(oscList))
     print (str(len(chords)) + ' chord types')
     print (str(chordWavsGenerated) + ' chords generated per oscillator')# prints number of chords in folder/length of digipronum before files are appended
     print(str(len(os.listdir(addendumPath)))+' files added from /'+addendumPath+'/')
-    print(os.getcwd())
     print(str(chordWavsGenerated+len(os.listdir(addendumPath)))+' files per oscillator to export to C6, must be below 64 for MnM')
     print(spacer)
