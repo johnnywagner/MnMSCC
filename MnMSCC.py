@@ -57,7 +57,7 @@ normalizeChords = 1
 genInversions = 1
 smartInvert = 1
 genCustomInversions = 1
-genUp1Octave = 0 
+genUp1Octave = 1 
 printGraphsFlag = 0
 
 
@@ -425,7 +425,7 @@ def write_all_chords(func):
         name = chord[0][:3]
         ratios = chord[1]
         customInversions = chord[2]
-        print('\nGENERATING '+chord[0])
+        print('\nSTARTING '+chord[0]+'...')
         #skip everything for unison waves or tracks with no programmed inversions in chord[2]
         if len(ratios) == 1 or len(customInversions) == 0 or genInversions == 0:
             name = chord[0][:4]
@@ -436,7 +436,6 @@ def write_all_chords(func):
         else:
             filename = path+'/'+name+'0.wav'
         write_chord_sample(filename, F0 / ratios[0], ratios, func) # root position, root at 0
-
         inversionFactor=2
         if smartInvert == 1:
             while(inversionFactor <= ratios[len(ratios)-1]/ratios[0]):
@@ -444,19 +443,18 @@ def write_all_chords(func):
        
         #Do all of the inversion generation logic
         if genInversions == 1:
-            print('GENERATING INVERSIONS:')
-            if genCustomInversions == 1:
-                print('Custom Inversions for '+name+' are '+str(customInversions))
+            print('GENERATING INVERSIONS:') #,end =" "
             inversionCount = 1
+            if inversionCount in customInversions:
+                print('Custom Inversions for'+name+' are '+str(customInversions))
             for position in range(1,len(ratios)): # second value in range controls how many inversions are generated. len(ratios) will generate all inversions
                 inversion = list(map(lambda ratio: ratio*inversionFactor, ratios[:position]))+ratios[position:]
-                #print('inversion= '+str(inversion))
                 filename = path+'/'+name+str(inversionCount)+'.wav'
                 if genCustomInversions == 1:
                     if inversionCount in customInversions:
                         pass
                     else:
-                        print('skipping   '+filename+'  IT`S RATIOS: '+str(ratios))
+                        print('skipping   '+filename+'  IT`S RATIOS WERE: '+str(ratios))
                         inversionCount += 1
                         continue
                 write_chord_sample(filename, F0 / ratios[0], inversion, func)
