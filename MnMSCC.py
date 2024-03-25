@@ -50,16 +50,16 @@ uniPath = 'Unison Waves'
 # Generation Controls & Chord Defintions
 ##########################################
 F0 = 261.6255653005986 # C4= 261.6255653005986  or 261.625565
-SAMPLE_RATE = 480005.0 # 10005 works well for the mnm, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
+SAMPLE_RATE = 100005.0 # 10005 works well for the mnm, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
 
 #Inversion Parameters
-altChordsFlag = 1
+altChordsFlag = 1 #generate the second chord array instead of the first
 normalizeChords = 1
 genInversions = 1
 smartInvert = 1
 genCustomInversions = 1
 genUp1Octave = 0 
-printGraphsFlag = 1
+printGraphsFlag = 0
 
 
 oscList = [
@@ -91,27 +91,23 @@ oscList = [
 ]
 
 #['chord name', [the just intonic ratios of the chord],[inversions you want to generate. Ex. generate 1st and 3rd inversions: "[1,3]" ]
+#['chord name', [the just intonic ratios of the chord],[inversions you want to generate. Ex. generate 1st and 3rd inversions: "[1,3]" ]
 chords = [
 #major chords
-['maj', [4,5,6],             [2,]],                   # major
+['maj', [4,5,6],             []],                   # major
 ['mj7', [8,10,12,15],        [2,3]],              # major7 3rd inversion is F/E
-['mj9', [8,10,12,15,18],        [2,3]],              # major9
-['mj11',[8,10,12,15,18,23],        [2,3]],              # major7
-['m79', [4,5,6,9],           [2,]],                 # maj add 9
+['mj9', [8,10,12,15,18],        []],              # major9
+['mj11',[8,10,12,15,18,23],        []],              # major7
 ['mjo', [4,5,6,10,12],       []],              #major open C4, E4, G4, E5, G5
 ['mor', [4,5,6,8,12],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
 ['mjq', [4,5,6,8,12,15],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
 ['jor', [4,5,6,8,9,12,18],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
 ['j06', [4,5,6,8,9,12,16,18],  [3,4]],           # C4,E4,G4,C5,D5,G5,D6
+['m79', [4,5,6,9],           [2,]],                 # maj add 9
 ['m+9', [4,5,6,18],          [2,]],                # maj add 9 but the 9 is up an octave
-['7#11',[8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
-['6  ',[12,15,18,20], [3] ],                #C6 C,E,G,A     third inversion is F/D
 
 #minor chords
-['emin', [10,12,15], [] ],               # C minor chord
-# ['bmin',  [15,18,23], [] ],
-# ['cmin',  [16,19,24], [] ],
-# ['gmin', [6,7,9], []],
+['min', [10,12,15], [] ],               # C minor chord
 ['mn7', [10,12,15,18],       [2,3]],               # C minor chord
 ['mn9',[10,12,15,18,23],[]],                   # true C minor 9
 ['mn11',[10,12,15,18,23,27],[]],               # true C minor 9 add f octave C,Eb,G,Bb,f
@@ -133,10 +129,10 @@ chords = [
 #['un5', [10,12,15,25],[2,]],              # C3,Eb3, G3, E4
 
 #sus2 chords
-['su2', [8,9,12],[2]],                  #  sus2
-['7s2i',[16,19,21,24],[]],            # C7sus2/G  also [6,7,8,9] 
-['7s2i',[16,19,21,24,32],[]],            # C7sus2/G  add G up 1 octave
-#['7s2', [8,9,12,14],[]],               # C7sus2 C,D,G,Bb
+['su2', [8,9,12],[1,2]],                 #  sus2
+['7s2i',[16,19,21,24],[]],             # C7sus2/G  also [6,7,8,9] 
+['7s2i',[16,19,21,24,32],[]],          # C7sus2/G  add G up 1 octave
+#['7s2', [8,9,12,14],[]],              # C7sus2 C,D,G,Bb
 ['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
 ['s2!', [4,5,6,8,9],[]],               # csus 2 +c octave + inverted d
 ['s2q', [3,4,5,6,8,9],[]],             # csus 2 +c octave + inverted d
@@ -144,7 +140,7 @@ chords = [
 ['s2@', [12,16,18,24,27],[]],          # idk G3,C4,D4,G4,A4
 
 #sus4 chords 
-['su4', [6,8,9],[2]],                   # sus4
+['su4', [6,8,9],[1,2]],                  # sus4
 ['s4!', [6,9,12,16,18],[]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
 ['s4@', [6,8,9,12,16,24],[]],          # C4,F4,G4,C5,F5,C6
 ['7s4i',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
@@ -169,6 +165,8 @@ chords = [
 ['au9',[16,20,25,28,36],[]],          #C,E,G#,Bb
     
 #Number/other Chords
+['7#11',[8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
+['6  ',[12,15,18,20], [3] ],                #C6 C,E,G,A     third inversion is F/D
 ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
@@ -178,27 +176,9 @@ chords = [
 ['blz', [15,18,20,27],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
 #['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
 
-# Weirdness below, try experimenting with non integer ratios for horizontally clipping chords
-#['imp',[1.333333,4.4653563465,6.92929292929]],
-
-#the below chords ratios are too big to work well with the mnm, I found to be uninteresting sounding, or not useful in the context of the mnm
-#['do7', [20,25,30,36]],              # ?dominant7
-#['7b5', [25,30,36,45]],              # ?dom7b5
-#['7#9', [20,25,30,36,48]],           # ?dom7#9 aka hendrix chord
-#['mm7', [40,48,60,75]],              # ?minmaj7
-#['smj', [1,3,5]],                    # open Major C4 E5 G6
-#['di2', [20,24,29]],                 # diminished
-##['dim',[20,24,29]],                # true diminished?
-#['nt4', [30,36,40,45],[]],           # C minor triad add 4
-#['n72', [8,12,14,18,23],[]],         # F3 bass on a minor add 7 (F3, C4, Eb4, G4, B4)
-#['mn9', [20,24,30,36,45],  [2,3]],   # minor 9th [20,24,30,36,45]]
-#['n79', [20,24,30,36,45]],           # min 7 add 9  
-
 # Unison notes. You can generate any combination desired. 1=C4,2=C5,4=C6,
-['uni', [1], [] ],
-#['Bb', [7], [] ],     
+['uni', [1], [] ], 
 ['uni2', [1,16], [] ],       
-#['uni3', [1,4,16], [] ],  
 
 ]
 
@@ -208,20 +188,16 @@ chords = [
 if altChordsFlag == 1:
     chords = [
     #major chords
-    ['maj', [4,5,6],             [1,2,]],                   # major
+    ['maj', [4,5,6],             [1,2]],                   # major
     ['mj7', [8,10,12,15],        [1,2,3]],              # major7 3rd inversion is F/E
-    ['mj9', [8,10,12,15,18],        [1,2,3]],              # major9
-    ['mj11',[8,10,12,15,18,23],        [2,3]],              # major7
-    ['mn11',[10,12,15,18,23,27],       []],               # true C minor 9 add f octave C,Eb,G,Bb,f
-    ['7#11',[8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
-    ['6  ',[12,15,18,20], [3] ],                #C6 C,E,G,A     third inversion is F/D
+    ['mj9', [8,10,12,15,18],        [1,2,3,4]],              # major9
+    ['mj11',[8,10,12,15,18,23],        []],              # major7
     
     #minor chords
-    ['emin', [10,12,15], [1,2] ],               # C minor chord
-    ['mn7', [10,12,15,18],       [1,2,3]],               # C minor chord
+    ['emin', [10,12,15], [1,2] ],                  # C minor chord
+    ['mn7', [10,12,15,18],       [1,2,3]],         # C minor chord
     ['mn9',[10,12,15,18,23],[]],                   # true C minor 9
-    ['7b5', [5,6,7,9],           [1,2,3]],     # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
-
+    ['mn11',[10,12,15,18,23,27],[]],               # true C minor 9 add f octave C,Eb,G,Bb,f
     
     #sus2 chords
     ['su2', [8,9,12],[1,2]],                  #  sus2
@@ -235,23 +211,26 @@ if altChordsFlag == 1:
     
     #diminished chords
     ['dim', [5,6,7],[1,2]],                   # perfect diminished
-    ['di7', [10,12,14,17],[]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
-    ['i7+', [10,12,14,17,20],[]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
+    ['di7', [10,12,14,17],[1,2,3]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
+    #['i7+', [10,12,14,17,20],[]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
     
     #Augmented chords
-    ['aug',[16,20,25],[]],                #C,E,G#
-    ['au7',[16,20,25,28],[]],             #C,E,G#,Bb
+    ['aug',[16,20,25],[1,2]],                #C,E,G#
+    ['au7',[16,20,25,28],[1,2,3]],             #C,E,G#,Bb
         
     #Number/other Chords
-    ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
+    ['7#11',[8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
+    ['7b5', [5,6,7,9],           [1,2,3]],         # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
     ['7  ', [4,5,6,7], [1,2,3] ],              # C7 (harmonic 7)
     ['9  ', [4,5,6,7,9], [1,2,3] ],            # C9 (harmonic 9)
+    ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
     ['4¥5', [6,9,10,12,16],[]],            #F/G with a C bass note monomachine turns ¥ into a percent sign (closests to slash I could find)
-    #['blz', [15,18,20,27],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
+    ['6  ', [12,15,18,20], [3] ],                #C6 C,E,G,A     third inversion is F/D
+
     # Unison notes. You can generate any combination desired. 1=C4,2=C5,4=C6,
+        
     ['uni', [1], [] ],
     ['uni2', [1,16], [] ],       
-    
     
     ]
 
@@ -619,7 +598,7 @@ for oscToGen in oscList:
     chordWavsGenerated = digiProNum # gets number of files generated before appending pre-exising files
     append_other_waves(func,addendumPath)
 
-write_all_unison()
+#write_all_unison()
 #printGraphs(uniPath)
 
 if len(oscList) != 0:
