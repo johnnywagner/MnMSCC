@@ -62,6 +62,16 @@ printGraphsFlag =
 ```
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types & program changes. It will generate a plot for each waveform so I don't reccomend having this on for generating more than one waveform type at a time.
 
+### Signal / Chord Generation Controls
+```
+oscList = [...]
+```
+
+
+```
+chords = [...]
+```
+
 →
 ### Auto Appending User Provided Files
 by default, the program scans a folder named "userFiles" in the same directory as the code and appends whatever single cycle .wavs or .syx files you'd like to the end of the generated list. This folder needs to be in the same folder as the python code. These files can be .wav, .syx, or any other audio file type accepted by C6 that has a file extension length of 3 characters (.wav) & can have any naming convention for ordering them, as long as they end in the letters/numbers you want them to show up as on the MnM.
