@@ -5,25 +5,27 @@ to do:
 * clean up this github readme
 * make final post to elektronauts
 
-# Single Cycle Chord Generator for the Elektron Monomachine 
+# Single Cycle Chord Generator for the Elektron Monomachine (and other samplers) 
 
 This program generates single-cycle just intonation chord waveforms for the Elektron Monomachine giving the user control over the generation parameters, waveform type, and inversion/voicing positions to generate. The program will also append user specified files to the end of the output list for quick importing into Elektron's C6 software.
 
 This tool is based on [original code by lucianon,](https://github.com/len/SCC) adding to its functionality & specializing it for use with Elektron's C6 software & Monomachine Synthesizer. My desire to make this program was originally inspired by Elektronauts forum user Veets in [this video.](https://www.youtube.com/watch?v=6O-p-Kbrt9o)
 
 ## Usage
-In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates. They are all off/on swtiches except `onlyGenXInversion` which can be an integer value, whos "off" position is also 0.
-### Globals
-'addendumPath' below defines the folder name where the files to add to the end of
-the digipro bank are. This folder needs to be in the same folder as the python code.
-These files can be .wav, .syx, or any other audio file type accepted by C6 that has a file extension length of 3 characters (.wav) &
-can have any naming convention for ordering them, as long as they end in EXACTLY 4
-letters/numbers you want them to show up as on the MnM.
-ie: 01tri1.wav" & "01_signaldescription_saw .syx"
-will generate: 'tri1.wav' & 'saw .wav' respectively.
-notice the space after "saw" on the second one to keep its name 4 characters long.
+In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates, using this part of the code as a GUI of sorts. 
 
-### Generation Controls
+### Sample Rate
+```
+SAMPLE_RATE =
+```
+This will change the sample rate the single cycle samples are generated at. The mnm doesn't *technically* care about sample rate like the Octatrack and other samplers do, but I did find through lots of trial & error that certain sample rates yield better results on the monomachine for different wave types. YMMV, and I found 48005 to sound good for all chords & wave types. 
+
+### Boolean Generation Controls (0 or 1)
+```
+altChordsFlag =
+```
+This is kind of a hack-y way to have 2 chord lists in the same program. Turning this on will use the second chord list instead of the first. I did this because I wanted to have 2 banks, one with just a bunch of different large chord and 1 or 2 inversions of each common chord type and another with simpler chords and all of their inversions.
+
 ```
 normalizeChords =
 ```
@@ -62,7 +64,9 @@ printGraphsFlag =
 
 →
 ### Auto Appending User Provided Files
-by default, the program scans a folder named "userFiles" in the same directory as the code and appends whatever single cycle .wavs or .syx files you'd like to the end of the generated list.
+by default, the program scans a folder named "userFiles" in the same directory as the code and appends whatever single cycle .wavs or .syx files you'd like to the end of the generated list. This folder needs to be in the same folder as the python code. These files can be .wav, .syx, or any other audio file type accepted by C6 that has a file extension length of 3 characters (.wav) & can have any naming convention for ordering them, as long as they end in the letters/numbers you want them to show up as on the MnM.
+ie: 01tri1.wav" & "02_signaldescription_saw.syx"
+will generate: 'tri1.wav' & 'saw.wav' respectively at the end of the chord file list. The program will remove any '_' characters from the last 4 characters of the filename for convenience.
 
 ### Sending the Generated Waveforms to Elektron's C6 Software
 After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. C6 only uses 4 letter names for each .wav once it send them to a machine, taking the first three and last characters of an input file to use as the display name.
