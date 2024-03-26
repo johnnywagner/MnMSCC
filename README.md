@@ -36,7 +36,7 @@ This flag can be 0 (off) or 1 (on) and controls wheather any inversions are gene
 ```
 genUp1Octave = 
 ```
-This will generate an additional chord that is the root position raised 1 octave
+This will generate an additional chord that is the root position raised 1 octave. I found this to not be very useful for the Monomachine but decided to leave it in incase anyone wants to create some chord banks for different purposes.
 ```
 smartInvert = 
 ```
@@ -72,6 +72,9 @@ For example:
 **Cho**rdSample0**7**.wav would yield → **CHO7** as a display name on the Monomachine for an input waveform (This works the same way for the Machinedrum UW)
 
 While this works well enough as a catchall way to autoname files, you cannot organize the files numerically without the prefix being used to generate a display name for the waveform on the Monomachine. To get around this, the program appends a dummy modified date to each .wav file increased by 1 year per file. This allows you sort your folder by date modifed and drag them into C6 keeping their 4 letter name in an arbitrary. Once the folder is sorted by date modified, you can drag them into C6, convert to DigiPRO and send to your Monomachine.
+
+### Bonus Feature
+As a means to test my ideas for single cycle waves, I made it so that the python script will also genererate all of the oscillator types as unison waves, cleanly named in a seperate folder /Unison Waves/. This means this program can essentially be used as a way to quickly generate a custom bank of regular ol monophonic DigiPRO samples.
 
 ## Features I Couldn't Figure Out How To Impliment:
 * Compressing the waveforms a little bit to increase their percieved loudness. This might be something really easy, but I couldn't figure out an elegant way to do this.
