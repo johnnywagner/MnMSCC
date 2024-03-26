@@ -16,7 +16,7 @@ Original Code by:
 2020/4/18, Luciano Notarfrancesco, github.com/len
 
 Monomachine Adaptation & Additional Signal types
-2024/2/28 , JW github.com/
+2024/2/24 , JW https://github.com/johnnywagner/MnMSCC/
 
 A useful Just Intonation webapp for use in tandem with this program:
 https://justintonate.com
@@ -50,12 +50,12 @@ uniPath = 'Unison Waves'
 # Generation Controls & Chord Defintions
 ##########################################
 F0 = 261.6255653005986 # C4= 261.6255653005986  or 261.625565
-SAMPLE_RATE = 100005.0 # 10005 works well for the mnm, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
+SAMPLE_RATE = 48005.0 # 10005 works well for the mnm, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
 
 #Inversion Parameters
-altChordsFlag = 1 #generate the second chord array instead of the first
+altChordsFlag = 0 #generate the second chord array instead of the first
 normalizeChords = 1
-genInversions = 1
+genInversions = 0
 smartInvert = 1
 genCustomInversions = 1
 genUp1Octave = 0 
@@ -118,7 +118,7 @@ chords = [
 ['n73', [12,16,19,24,30],[]],           # G3 bass on a minor add 7 (G3, C4, Eb4, G4, B4)
 ['7++', [10,12,15,18,24,30], []],     # C minor 7 add eb & g octave. C,Eb,G,Bb,Eb,G
 ['b79', [12,16,19,24,29,36],[]],        # G bass + Minor 7 add 9
-['7b5', [5,6,7,9],           [2,]],     # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
+['7b5', [5,6,7,9],           []],     # Cmin7b5 aka (half-diminished Used in Black Cow by Steely Dan
 
 ['un6',[12,15,20,29], [] ],              # C4,E4,A4,Eb5
 ['nj9', [8,9,16,19,24,36],[]],          # Cm(maj9)
@@ -129,7 +129,7 @@ chords = [
 #['un5', [10,12,15,25],[2,]],              # C3,Eb3, G3, E4
 
 #sus2 chords
-['su2', [8,9,12],[1,2]],                 #  sus2
+['su2', [8,9,12],[1,2]],               #  sus2
 ['7s2i',[16,19,21,24],[]],             # C7sus2/G  also [6,7,8,9] 
 ['7s2i',[16,19,21,24,32],[]],          # C7sus2/G  add G up 1 octave
 #['7s2', [8,9,12,14],[]],              # C7sus2 C,D,G,Bb
@@ -140,7 +140,7 @@ chords = [
 ['s2@', [12,16,18,24,27],[]],          # idk G3,C4,D4,G4,A4
 
 #sus4 chords 
-['su4', [6,8,9],[1,2]],                  # sus4
+['su4', [6,8,9],[1,2]],                # sus4
 ['s4!', [6,9,12,16,18],[]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
 ['s4@', [6,8,9,12,16,24],[]],          # C4,F4,G4,C5,F5,C6
 ['7s4i',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
@@ -171,10 +171,10 @@ chords = [
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
 ['4¥5', [6,9,10,12,16],[]],            #F/G with a C bass note monomachine turns ¥ into a percent sign (closests to slash I could find)
-#['9 2',  [8,9,10,12,14], [] ],
+['9 2',  [8,9,10,12,14], [] ],
 ['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
 ['blz', [15,18,20,27],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
-#['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
+['hmm', [12,16,17,18],[1,2,3]],             # originally listed as "dream" chord
 
 # Unison notes. You can generate any combination desired. 1=C4,2=C5,4=C6,
 ['uni', [1], [] ], 
