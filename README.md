@@ -48,8 +48,7 @@ This will invert chords based on their smallest ratios compared to their largest
 genCustomInversions = 
 ```
 Turning this flag on allows the user to generate their own custom list of inversions, rather than generating all possible inversions for every chord. The custom inversion data for each chord is stored in the 3rd slot of its list inside of the larger chord array.
-
-          For example:
+For example:
                 ```
                 chords = [
                 #major chords
