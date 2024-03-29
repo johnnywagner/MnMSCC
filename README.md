@@ -51,7 +51,6 @@ Turning this flag on allows the user to generate their own custom list of invers
 
 * For example:
  
-
             chords = [
             #major chords
             [ 'mj7' , [8,10,12,15] , [1,3] ], ]
