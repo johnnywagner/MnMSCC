@@ -11,8 +11,10 @@ This program generates single-cycle just intonation chord waveforms for the Elek
 
 This tool is based on [original code by lucianon,](https://github.com/len/SCC) adding to its functionality & specializing it for use with Elektron's C6 software & Monomachine Synthesizer. My desire to make this program was originally inspired by Elektronauts forum user Veets in [this video.](https://www.youtube.com/watch?v=6O-p-Kbrt9o)
 
+
 ## Usage
 In the "Generation Controls & Chord Defintions" section of `MnMSCC.py` the below parameters are availible to edit to quickly make changes to what chords the program generates, using this part of the code as a GUI of sorts. The below explanation of what each parameter does is not in order to the code, but organized differently here based on 
+
 
 ### Sample Rate
 ```
@@ -20,34 +22,38 @@ SAMPLE_RATE =
 ```
 This will change the sample rate the single cycle samples are generated at. The mnm doesn't *technically* care about sample rate like the Octatrack and other samplers do, but I did find through lots of trial & error that certain sample rates yield better results on the monomachine for different wave types. YMMV, and I found 48005 to sound good for all chords & wave types. 
 
+
 ### Boolean Generation Controls (0 or 1)
+
+
 ```
 altChordsFlag =
 ```
 This is kind of a hack-y way to have 2 chord lists in the same program. Turning this on will use the second chord list instead of the first. I did this because I wanted to have 2 banks, one with just a bunch of different large chord and 1 or 2 inversions of each common chord type and another with simpler chords and all of their inversions.
+
+
 ```
 normalizeChords =
 ```
 This flag can be 0 (off) or 1 (on) and raises the highest base ratio of the chords you want to generate 1 octave to match the Minor chord whos Just Intonic ratios are [10,12,15]. Without getting into the math (that I don't fully understand) the ratios of the minor chord put it 1 octave above the others relatively speaking so anything lower must be raised to match it so they all play in the same relative octave on the Monomachine. Single ratio inputs are ignored (unison)
-<br />
 
 ```
 genInversions =
 ```
 This flag can be 0 (off) or 1 (on) and controls wheather any inversions are generated. If set to 0, none of the other inversionr related flags will do anything.
-<br />
-​
+
 ```
 genUp1Octave = 
 ```
 This will generate an additional chord that is the root position raised 1 octave. I found this to not be very useful for the Monomachine but decided to leave it in incase anyone wants to create some chord banks for different purposes.
-<br />
-​
+
+
 ```
 smartInvert = 
 ```
 This will invert chords based on their smallest ratios compared to their largest, rather than just doubling a ratio to create an inversion. For larger chords such as major11, whose ratios are 8:10:12:15:18:23, its 1st inversion would normally be generated as **16**:10:12:15:18:23 where as when smartInvert is enabled, it will raise it 2 octaves instead of 1 to generate an inversion so that the inverted note is always larger than the largest ratio. This would yield **32**:10:12:15:18:23 where 32 is greater than 23.
-​
+
+
 ```
 genCustomInversions = 
 ```
@@ -86,10 +92,12 @@ oscList = [...]
 ```
 This list controls what oscilattors from the "osccillators" class have their chords genereated. Many of these are experimental. The current list is what I ended up going with for the MnM.
 
+
 ```
 chords = [...]
 ```
 This list will tell the program the 3-4 letter name of the chord you want to genereate, it's just intonal ratios, adnd the inversion values you wish to generate. See the above section about for the ```genCustomInversions = ``` flag for a full explanation of how these array entries should be formatted.
+
 
 →
 
