@@ -53,7 +53,7 @@ Turning this flag on allows the user to generate their own custom list of invers
   ```
   chords = [
   [ 'mj7' , [8,10,12,15] , [1,3] ], ]
-Would generate the 1st and 3rd inversions of the chord whose ratios are 8:10:12:15. The program will yeild: mj70.wav (it always generates root position), mj71.wav (1st inversions) & mj73.wav (3rd inversion)    
+Would generate the 1st and 3rd inversions of the chord whose ratios are 8:10:12:15. The program will yeild: mj70.wav (it always generates root position), mj71.wav (1st inversions) & mj73.wav (3rd inversion)             
 ```
 appendUserFilesFlag = 
 ```
