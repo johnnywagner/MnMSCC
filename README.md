@@ -68,13 +68,13 @@ When turned on, the program can scan a folder named "userFiles" in the same dire
 ie: 01tri1.wav" & "02_signaldescription_saw.syx"
 will generate: 'tri1.wav' & 'saw.wav' respectively at the end of the chord file list. The program will remove any '_' characters from the last 4 characters of the filename for convenience. 
 I ultimately did not end up using this for the final program, but I decied to leave it in in case anyone ever wanted to use this program for something other than single cycle chords. 
-#
+
 
 ```
 printGraphsFlag = 
 ```
 #turn this on to generate matplotlib graphs of the waves generated. Useful for debugging new waveform types & program changes. It will generate a plot for each waveform so I don't reccomend having this on for generating more than one waveform type at a time.
-#
+
 
 ### Signal / Chord Generation Controls
 ```
