@@ -74,16 +74,14 @@ printGraphsFlag =
 ```
 oscList = [...]
 ```
-This list controls what oscilattors from the "osccillators" class have their chords genereated. Many of these are experimental.
-
+This list controls what oscilattors from the "osccillators" class have their chords genereated. Many of these are experimental. The current list is what I ended up going with for the MnM.
 
 ```
 chords = [...]
 ```
+This list will tell the program the 3-4 letter name of the chord you want to genereate, it's just intonal ratios, adnd the inversion values you wish to generate. See the above section about for the ```genCustomInversions = ``` flag for a full explanation of how these array entries should be formatted.
 
 →
-### Auto Appending User Provided Files
-by default, 
 
 ### Sending the Generated Waveforms to Elektron's C6 Software
 After the program completes, there will be a folder containing all of the samples in .wav format to send to the monomachine. C6 only uses 4 letter names for each .wav once it send them to a machine, taking the first three and last characters of an input file to use as the display name.
