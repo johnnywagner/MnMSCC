@@ -25,8 +25,8 @@ This will change the sample rate the single cycle samples are generated at. The 
 altChordsFlag =
 ```
 This is kind of a hack-y way to have 2 chord lists in the same program. Turning this on will use the second chord list instead of the first. I did this because I wanted to have 2 banks, one with just a bunch of different large chord and 1 or 2 inversions of each common chord type and another with simpler chords and all of their inversions.
-<br />
-
+<br />  
+  
 ```
 normalizeChords =
 ```
