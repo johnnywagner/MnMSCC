@@ -59,6 +59,7 @@ genInversions = 1
 smartInvert = 1
 genCustomInversions = 1
 genUp1Octave = 0 
+appendUserFilesFlag = 0
 printGraphsFlag = 0
 
 
@@ -67,13 +68,11 @@ oscList = [
 #'osc_tri',
 #'osc_saw',
 #'osc_saw1',
-#'osc_saw2',
 #'osc_sqr',
-#'osc_sqr2',
 #'osc_fm1',
 #'osc_fm2',
 #'osc_chor', choir
-#'osc_voic', #voice @11025
+#'osc_voic', #voice 
 #'osc_flut', #flute
 #'osc_whis', #whistle
 #'osc_tsp', #idk
@@ -182,7 +181,7 @@ chords = [
 
 
 
-#second chords array for the second machine type
+#second chords array for the second machine type. This will fewer more common/standard chords, but genereate all of their inversions.
 if altChordsFlag == 1:
     chords = [
     #major chords
@@ -228,7 +227,6 @@ if altChordsFlag == 1:
     ['6  ', [12,15,18,20], [] ],                #C6 C,E,G,A     third inversion is F/D
 
     # Unison notes. You can generate any combination desired. 1=C4,2=C5,4=C6,
-        
     ['uni', [1], [] ],
     ['uni2', [1,16], [] ],       
     
@@ -270,16 +268,6 @@ class oscillators(object):
     def osc_saw1(x, partials):
       k = pi/2/partials
       v = 0.0
-      for n in range(1,partials):
-        m = cos(2*(n-1)*k)
-        m *= m
-        v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
-      v = v / 2
-      return v
-
-    def osc_saw2(x, partials):
-      k = pi/2/partials
-      v = 0.0
       for n in range(2,50):
         m = cos((n-1)*k)
         m *= m
@@ -297,12 +285,6 @@ class oscillators(object):
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
       return v
 
-    def osc_sqr2(x, partials):
-      k = pi/2
-      v = 0.0
-      for n in range(1,100):
-        v += sin(x*(2*n-1))/(2*n-1)
-      return v
        
     def osc_fm1(x,partials):
         #https://www.desmos.com/calculator/dpbikmtqnq
@@ -523,7 +505,7 @@ def write_all_unison():
 
 # this function adds files from a user defined directory to the end of the generated file list for the MnM
 # this can be useful to add a few extra monophonic tones to the end of the digipro bank such as a noise oscilator and some bass notes
-def append_other_waves(func,addendumPath):
+def append_user_files(func,addendumPath):
     print('\n')
     global digiProNum
     if not os.path.exists(addendumPath): os.makedirs(addendumPath)
@@ -596,7 +578,8 @@ for oscToGen in oscList:
     if printGraphsFlag == 1:
         printGraphs(func.__name__)
     chordWavsGenerated = digiProNum # gets number of files generated before appending pre-exising files
-    append_other_waves(func,addendumPath)
+    if appendUserFilesFlag == 1:
+        append_user_files(func,addendumPath)
 
 #write_all_unison()
 #printGraphs(uniPath)
