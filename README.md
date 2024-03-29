@@ -25,25 +25,27 @@ This will change the sample rate the single cycle samples are generated at. The 
 altChordsFlag =
 ```
 This is kind of a hack-y way to have 2 chord lists in the same program. Turning this on will use the second chord list instead of the first. I did this because I wanted to have 2 banks, one with just a bunch of different large chord and 1 or 2 inversions of each common chord type and another with simpler chords and all of their inversions.
-
+##
 ```
 normalizeChords =
 ```
 This flag can be 0 (off) or 1 (on) and raises the highest base ratio of the chords you want to generate 1 octave to match the Minor chord whos Just Intonic ratios are [10,12,15]. Without getting into the math (that I don't fully understand) the ratios of the minor chord put it 1 octave above the others relatively speaking so anything lower must be raised to match it so they all play in the same relative octave on the Monomachine. Single ratio inputs are ignored (unison)
+##
 ```
 genInversions =
 ```
 This flag can be 0 (off) or 1 (on) and controls wheather any inversions are generated. If set to 0, none of the other inversionr related flags will do anything.
-
+##
 ```
 genUp1Octave = 
 ```
 This will generate an additional chord that is the root position raised 1 octave. I found this to not be very useful for the Monomachine but decided to leave it in incase anyone wants to create some chord banks for different purposes.
+##
 ```
 smartInvert = 
 ```
 This will invert chords based on their smallest ratios compared to their largest, rather than just doubling a ratio to create an inversion. For larger chords such as major11, whose ratios are 8:10:12:15:18:23, its 1st inversion would normally be generated as **16**:10:12:15:18:23 where as when smartInvert is enabled, it will raise it 2 octaves instead of 1 to generate an inversion so that the inverted note is always larger than the largest ratio. This would yield **32**:10:12:15:18:23 where 32 is greater than 23.
-
+##
 ```
 genCustomInversions = 
 ```
@@ -53,7 +55,8 @@ Turning this flag on allows the user to generate their own custom list of invers
   ```
   chords = [
   [ 'mj7' , [8,10,12,15] , [1,3] ], ]
-Would generate the 1st and 3rd inversions of the chord whose ratios are 8:10:12:15. The program will yeild: mj70.wav (it always generates root position), mj71.wav (1st inversions) & mj73.wav (3rd inversion)             
+Would generate the 1st and 3rd inversions of the chord whose ratios are 8:10:12:15. The program will yeild: mj70.wav (it always generates root position), mj71.wav (1st inversions) & mj73.wav (3rd inversion)
+##
 ```
 appendUserFilesFlag = 
 ```
@@ -61,7 +64,7 @@ When turned on, the program can scan a folder named "userFiles" in the same dire
 ie: 01tri1.wav" & "02_signaldescription_saw.syx"
 will generate: 'tri1.wav' & 'saw.wav' respectively at the end of the chord file list. The program will remove any '_' characters from the last 4 characters of the filename for convenience. 
 I ultimately did not end up using this for the final program, but I decied to leave it in in case anyone ever wanted to use this program for something other than single cycle chords. 
-
+##
 ```
 printGraphsFlag = 
 ```
