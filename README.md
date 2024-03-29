@@ -36,19 +36,18 @@ genInversions =
 ```
 This flag can be 0 (off) or 1 (on) and controls wheather any inversions are generated. If set to 0, none of the other inversionr related flags will do anything.
 <br />
-
+​
 ```
 genUp1Octave = 
 ```
 This will generate an additional chord that is the root position raised 1 octave. I found this to not be very useful for the Monomachine but decided to leave it in incase anyone wants to create some chord banks for different purposes.
 <br />
-
+​
 ```
 smartInvert = 
 ```
 This will invert chords based on their smallest ratios compared to their largest, rather than just doubling a ratio to create an inversion. For larger chords such as major11, whose ratios are 8:10:12:15:18:23, its 1st inversion would normally be generated as **16**:10:12:15:18:23 where as when smartInvert is enabled, it will raise it 2 octaves instead of 1 to generate an inversion so that the inverted note is always larger than the largest ratio. This would yield **32**:10:12:15:18:23 where 32 is greater than 23.
-<br />
-
+​
 ```
 genCustomInversions = 
 ```
