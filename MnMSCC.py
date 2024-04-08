@@ -103,7 +103,7 @@ chords = [
 ['jor', [4,5,6,8,9,12,18],  []],           # C4,E4,G4,C5,D5,G5,D6
 #['j06', [4,5,6,8,9,12,16,18],  []],           # C4,E4,G4,C5,D5,G5,D6
 #['m79', [4,5,6,9],           []],                 # maj add 9
-['m+9', [4,5,6,18],          []],                # maj add 9 but the 9 is up an octave
+['j+9', [4,5,6,18],          []],                # maj add 9 but the 9 is up an octave
 
 #minor chords
 ['min', [10,12,15], [] ],                     # C minor chord
@@ -123,6 +123,7 @@ chords = [
 ['n+7', [10,12,15,19],[]],              # C min add 7 chord aka minor(major7)
 ['n4 ', [10,12,15,27],[]],              # C minor triad add 4 but the 4 is up 1 octave
 #['un5', [10,12,15,25],[]],              # C3,Eb3, G3, E4
+['n+9', [10,12,15,46],[]],
 
 #sus2 chords
 ['su2', [8,9,12],[1,2]],               #  sus2
@@ -163,7 +164,7 @@ chords = [
     
 #Number/other Chords
 ['7#11',[8,10,12,15,23],[]],              #Cmaj7#11 C4,E4,G4,B4,F#5
-['7b5', [5,6,7,9],           []],     # Cmin7b5 aka (half-diminished Used in Black Cow by Steely Dan
+['7b5', [5,6,7,9], []],     # Cmin7b5 aka (half-diminished Used in Black Cow by Steely Dan
 ['6  ',[12,15,18,20], [] ],                #C6 C,E,G,A     third inversion is F/D
 ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
@@ -216,11 +217,11 @@ if altChordsFlag == 1:
     
     #Augmented chords
     ['aug',[16,20,25],[1,2]],                #C,E,G#
-    ['au7',[16,20,25,28],[1,2]],             #C,E,G#,Bb
+    ['au7',[16,20,25,28],[2,3]],             #C,E,G#,Bb
         
     #Number/other Chords
-    ['7#11',[8,10,12,15,23],[1,2]],              #Cmaj7#11 C4,E4,G4,B4,F#5
-    ['7b5', [5,6,7,9],        [1,2,3]],         # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
+    ['7#11',[8,10,12,15,23],[2,3]],              #Cmaj7#11 C4,E4,G4,B4,F#5
+    ['7b5', [5,6,7,9], [2,3]],         # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
     ['6  ', [12,15,18,20], [] ],                #C6 C,E,G,A     third inversion is F/D
     ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
     ['7  ', [4,5,6,7], [1] ],              # C7 (harmonic 7)
@@ -407,9 +408,10 @@ class oscillators(object):
 def write_chord_sample(filename, f0, ratios, func): #no idea how this one works but it works
     global digiProNum
     i = 1
+    filenameold = filename
     while os.path.isfile(filename) == True:
         print(filename+' already exists')
-        filename = filename[:-4]+'('+str(i)+').wav'
+        filename = filenameold[:-4]+'-'+str(i)+'.wav'
         i += 1
     wav = wave.open(filename,'w')
     wav.setnchannels(1)
