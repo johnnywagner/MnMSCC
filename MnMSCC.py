@@ -64,14 +64,14 @@ printGraphsFlag = 0
 
 
 oscList = [
-'osc_sine',
+#'osc_sine',
 #'osc_tri',
 #'osc_saw',
 #'osc_saw1',
 #'osc_sqr',
 #'osc_fm1',
 #'osc_fm2',
-#'osc_chor', choir
+'osc_chor', #choir
 #'osc_voic', #voice 
 #'osc_flut', #flute
 #'osc_whis', #whistle
@@ -127,30 +127,30 @@ chords = [
 
 #sus2 chords
 ['su2', [8,9,12],[1,2]],               #  sus2
-['s2!', [4,5,6,8,9],[]],               # csus 2 +c octave + inverted d
-['7s2i',[16,19,21,24],[]],             # C7sus2/G  also [6,7,8,9] 
+['s2!', [4,5,6,8,9],[3]],               # csus 2 +c octave + inverted d
 #['7s2i',[16,19,21,24,32],[]],          # C7sus2/G  add G up 1 octave
 #['7s2', [8,9,12,14],[]],              # C7sus2 C,D,G,Bb
 ['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
-
 ['s2q', [3,4,5,6,8,9],[]],             # csus 2 +c octave + inverted d
-['6s2', [16,18,24,27],[]],             # C6sus2 CDGA
+#['6s2', [16,18,24,27],[]],             # C6sus2 CDGA
 ['s2@', [12,16,18,24,27],[]],          # idk G3,C4,D4,G4,A4
+['7s2i',[16,19,21,24],[]],             # C7sus2/G  also [6,7,8,9]
+['7s22',[16,19,21,24,36],[]],             # C7sus2/G  also [6,7,8,9] 
 
 #sus4 chords 
 ['su4', [6,8,9],[1,2]],                # sus4
-['s4!', [6,9,12,16,18],[]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
+['s4!', [6,9,12,16,18],[3]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
 ['s4@', [6,8,9,12,16,24],[]],          # C4,F4,G4,C5,F5,C6
-['7s4i',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
-['7s41',[15,18,20,27,30],[]],          # C7sus4/G aka C7sus4 inverted on G add g up 1 octave
-['7s42',[15,18,20,27,34],[]],          # C7sus4/G aka C7sus4 inverted on G
+#['7s41',[15,18,20,27,30],[]],          # C7sus4/G aka C7sus4 inverted on G add g up 1 octave
 #['7s4', [12,16,18,21],[]],            # C7sus4
 #['7s4', [12,16,18,23,27],[]],         # C7sus4
 #['un2',  [4,5,6,8,9],[]],             # C4,E4,G4,C5,D5
 ['s4#', [12,16,18,23],[]],             # C maj 7th suspended 4th
 ['s49', [12,16,18,23,27],[]],          # C maj 7th suspended 4th add 9
 ['un4', [12,15,18,24,27,32], []],   # C4,E4,G4,C5,D5,F5 this sounds more sus than major
-['9s4',[12,18,21,27,32],[]],           # C9sus4 open voicing C4,G4,Bb4,D5,F5
+#['9s4',[12,18,21,27,32],[]],           # C9sus4 open voicing C4,G4,Bb4,D5,F5
+['7s4i',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
+['7s42',[15,18,20,27,34],[]],          # C7sus4/G aka C7sus4 inverted on G
 
 #diminished chords
 ['dim', [5,6,7],[]],                   # perfect diminished
@@ -169,11 +169,11 @@ chords = [
 ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
 ['7  ', [4,5,6,7], [] ],              # C7 (harmonic 7)
 ['9  ', [4,5,6,7,9], [] ],            # C9 (harmonic 9)
+['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
 ['4¥5', [6,9,10,12,16],[]],            #F/G with a C bass note monomachine turns ¥ into a percent sign (closests to slash I could find)
 #['9 2',  [8,9,10,12,14], [] ],
-['9+o', [4,5,6,7,9,12], [] ],         # C9 (harmonic 9) + G
 #['blz', [15,18,20,27],[2]],                # ? C + Eb + F looks like F harmonic dyad (power chord) add b7 inverted on C
-['hmm', [12,16,17,18],[]],             # originally listed as "dream" chord
+#['hmm', [12,16,17,18],[]],             # originally listed as "dream" chord
 
 # Unison notes. You can generate any combination desired. 1=C4,2=C5,4=C6,
 ['uni', [1], [] ], 
@@ -193,7 +193,7 @@ if altChordsFlag == 1:
     ['mj11',[8,10,12,15,18,23],        []],              # major7
     
     #minor chords
-    ['emin', [10,12,15], [1,2] ],                  # C minor chord
+    ['min', [10,12,15], [1,2] ],                  # C minor chord
     ['mn7', [10,12,15,18],  [1,2,3]],         # C minor chord
     ['mn9',[10,12,15,18,23],[1,2,3,4]],                   # true C minor 9
     ['mn11',[10,12,15,18,23,27],[]],               # true C minor 9 add f octave C,Eb,G,Bb,f
@@ -596,3 +596,4 @@ if len(oscList) != 0:
     print(str(len(os.listdir(addendumPath)))+' files added from /'+addendumPath+'/')
     print(str(chordWavsGenerated+len(os.listdir(addendumPath)))+' files per oscillator to export to C6, must be below 64 for MnM')
     print(spacer)
+
