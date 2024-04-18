@@ -65,7 +65,7 @@ printGraphsFlag = 0
 
 
 oscList = [
-'osc_sine',
+#'osc_sine',
 #'osc_tri',
 #'osc_saw',
 #'osc_saw2',
@@ -273,12 +273,12 @@ class oscillators(object):
     def osc_saw2(x, partials):
       k = pi/2/partials
       v = 0.0
-      for n in range(2,50):
+      for n in range(2,4):
         m = cos((n-1)*k)
         m *= m
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
       v = v / 2
-      return v
+      return 2*v
    
     def osc_sqr(x, partials):
       k = pi/2/partials
@@ -298,7 +298,7 @@ class oscillators(object):
         m = cos((n-1)*k)
         m *= m
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
-      return v
+      return 2*v
 
        
     def osc_fm1(x,partials):
