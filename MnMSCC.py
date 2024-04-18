@@ -1,3 +1,4 @@
+
 '''
 to do:
 * decide on final chord list. just need to make cuts and decisoons. I definitelt want a few inversions in there.
@@ -53,7 +54,7 @@ F0 = 261.6255653005986 # C4= 261.6255653005986  or 261.625565
 SAMPLE_RATE = 48005.0 # 10005 works well for the mnm, idk why. common sample rates you may use for other use cases besides the MnM: 22050,24000,44100,48000
 
 #Inversion Parameters
-altChordsFlag = 0 #generate the second chord array instead of the first
+altChordsFlag = 1 #generate the second chord array instead of the first
 normalizeChords = 1
 genInversions = 1
 smartInvert = 1
@@ -64,29 +65,30 @@ printGraphsFlag = 0
 
 
 oscList = [
-#'osc_sine',
+'osc_sine',
 #'osc_tri',
 #'osc_saw',
-#'osc_saw1',
+#'osc_saw2',
 #'osc_sqr',
-#'osc_fm1',
+#'osc_sqr2',
+##'osc_fm1',
 #'osc_fm2',
-'osc_chor', #choir
-#'osc_voic', #voice 
+#'osc_chor', #choir
+##'osc_voic', #voice 
 #'osc_flut', #flute
-#'osc_whis', #whistle
-#'osc_tsp', #idk
-#'osc_tuba', 
-#'osc_trum', #trumpet
+##'osc_whis', #whistle
+##'osc_tsp', #idk
+##'osc_tuba', 
+##'osc_trum', #trumpet
 #'osc_soft',
 #'osc_pad',
-#'osc_tst1',
-#'osc_tst2',
-#'osc_bzzy',
-#'osc_bzz2',
-#'osc_dist',
-#'osc_rnd',
-#'osc_clp',
+##'osc_tst1',
+##'osc_tst2',
+##'osc_bzzy',
+##'osc_bzz2',
+##'osc_dist',
+##'osc_rnd',
+##'osc_clp',
 ]
 
 #['chord name', [the just intonic ratios of the chord],[inversions you want to generate. Ex. generate 1st and 3rd inversions: "[1,3]" ]
@@ -187,41 +189,41 @@ chords = [
 if altChordsFlag == 1:
     chords = [
     #major chords
-    ['maj', [4,5,6],             [1,2]],                   # major
-    ['mj7', [8,10,12,15],        [1,2,3]],              # major7 3rd inversion is F/E
-    ['mj9', [8,10,12,15,18],        [1,2,3,4]],              # major9
-    ['mj11',[8,10,12,15,18,23],        []],              # major7
+    ['maj', [4,5,6],             [1,2]],             # major
+    ['mj7', [8,10,12,15],        [1,2,3]],           # major7 3rd inversion is F/E
+    ['mj9', [8,10,12,15,18],     [1,2,3,4]],         # major9
+    ['j11',[8,10,12,15,18,23],   [3]],               # major7
     
     #minor chords
-    ['min', [10,12,15], [1,2] ],                  # C minor chord
-    ['mn7', [10,12,15,18],  [1,2,3]],         # C minor chord
-    ['mn9',[10,12,15,18,23],[1,2,3,4]],                   # true C minor 9
-    ['mn11',[10,12,15,18,23,27],[]],               # true C minor 9 add f octave C,Eb,G,Bb,f
+    ['min', [10,12,15],          [1,2] ],            # C minor chord
+    ['mn7', [10,12,15,18],       [1,2,3]],           # C minor chord
+    ['mn9',[10,12,15,18,23],     [1,2,3,4]],         # true C minor 9
+    ['n11',[10,12,15,18,23,27],  [3]],               # true C minor 9 add f octave C,Eb,G,Bb,f
     
     #sus2 chords
     ['su2', [8,9,12],[1,2]],                  #  sus2
-    ['s2!', [4,5,6,8,9],[]],               # csus 2 +c octave + inverted d
-    ['s2#', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
-    ['7s2i',[16,19,21,24],[]],            # C7sus2/G  also [6,7,8,9] 
+    ['s2+', [4,5,6,8,9],[1,3]],               # csus 2 +c octave + inverted d
+    ['s2x1', [8,9,12,16,18],[]],            # C4,D4,G4,C5,D5
+    ['s2x2',[16,19,21,24],[]],            # C7sus2/G  also [6,7,8,9] 
 
     #sus4 chords 
     ['su4', [6,8,9],[1,2]],                   # sus4
-    ['s4!', [6,9,12,16,18],[]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
-    ['s4@', [6,8,9,12,16,24],[]],          # C4,F4,G4,C5,F5,C6
-    ['7s4i',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
+    ['s4+', [6,9,12,16,18],[1,3]],            # Nice open sus 4 chord  C4,G4,C5,F5,G5
+    ['s4x1', [6,8,9,12,16,24],[]],          # C4,F4,G4,C5,F5,C6
+    ['s4x2',[15,18,20,27],[]],             # C7sus4/G aka C7sus4 inverted on G
     
     #diminished chords
-    ['dim', [5,6,7],[1,2]],                   # perfect diminished
-    ['di7', [10,12,14,17],[1,2,3]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
+    ['dim', [5,6,7],[1]],                   # perfect diminished
+    ['di7', [10,12,14,17],[2]],             # Francois-Joseph Fetis dim (17-limit tuning)(idk what this is) B3+D4+F4+Ab4
     #['i7+', [10,12,14,17,20],[]],          # Francois-Joseph Fetis dim (17-limit tuning) B3+D4+F4+Ab4+B5
     
     #Augmented chords
-    ['aug',[16,20,25],[1,2]],                #C,E,G#
-    ['au7',[16,20,25,28],[2,3]],             #C,E,G#,Bb
+    ['aug',[16,20,25],[2]],                #C,E,G#
+    ['au7',[16,20,25,28],[3]],             #C,E,G#,Bb
         
     #Number/other Chords
-    ['7#11',[8,10,12,15,23],[2,3]],              #Cmaj7#11 C4,E4,G4,B4,F#5
-    ['7b5', [5,6,7,9], [2,3]],         # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
+    ['7#11',[8,10,12,15,23],[3]],              #Cmaj7#11 C4,E4,G4,B4,F#5
+    ['7b5', [5,6,7,9], [2]],         # Cmin7b5 (half-diminished) Used in Black Cow by Steely Dan
     ['6  ', [12,15,18,20], [] ],                #C6 C,E,G,A     third inversion is F/D
     ['5+6', [6,9,10], [] ],               #C5 add 6 C,G,A
     ['7  ', [4,5,6,7], [1] ],              # C7 (harmonic 7)
@@ -268,7 +270,7 @@ class oscillators(object):
       v = v / 2
       return v
 
-    def osc_saw1(x, partials):
+    def osc_saw2(x, partials):
       k = pi/2/partials
       v = 0.0
       for n in range(2,50):
@@ -282,6 +284,16 @@ class oscillators(object):
       k = pi/2/partials
       v = 0.0
       for n in range(1,partials):
+        if n%2==0: continue
+        m = cos((n-1)*k)
+        m *= m
+        v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
+      return v
+
+    def osc_sqr2(x, partials):
+      k = pi/2/partials
+      v = 0.0
+      for n in range(2,6):
         if n%2==0: continue
         m = cos((n-1)*k)
         m *= m
@@ -585,7 +597,7 @@ for oscToGen in oscList:
     if appendUserFilesFlag == 1:
         append_user_files(func,addendumPath)
 
-#write_all_unison()
+write_all_unison()
 #printGraphs(uniPath)
 
 if len(oscList) != 0:
@@ -596,4 +608,3 @@ if len(oscList) != 0:
     print(str(len(os.listdir(addendumPath)))+' files added from /'+addendumPath+'/')
     print(str(chordWavsGenerated+len(os.listdir(addendumPath)))+' files per oscillator to export to C6, must be below 64 for MnM')
     print(spacer)
-
