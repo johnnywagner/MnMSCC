@@ -84,7 +84,7 @@ oscList = [
 'osc_pad',
 #'osc_gtar',
 'osc_bell',
-'osc_bzzy',
+#'osc_bzzy',
 'osc_org',
 ##'osc_dist',
 ##'osc_rnd',
