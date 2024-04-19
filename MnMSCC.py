@@ -65,27 +65,27 @@ printGraphsFlag = 0
 
 
 oscList = [
-#'osc_sine',
-#'osc_tri',
-#'osc_saw',
-#'osc_saw2',
-#'osc_sqr',
-#'osc_sqr2',
+'osc_sine',
+'osc_tri',
+'osc_saw',
+##'osc_saw2',
+'osc_sqr',
+#'osc_5th',
 ##'osc_fm1',
-#'osc_fm2',
-#'osc_chor', #choir
-##'osc_voic', #voice 
-#'osc_flut', #flute
+'osc_fm',
+'osc_chor', #choir
+'osc_voic', #voice 
+'osc_flut', #flute
 ##'osc_whis', #whistle
 ##'osc_tsp', #idk
-##'osc_tuba', 
 ##'osc_trum', #trumpet
-#'osc_soft',
-#'osc_pad',
-##'osc_tst1',
-##'osc_tst2',
-##'osc_bzzy',
-##'osc_bzz2',
+'osc_tuba', 
+##'osc_soft',
+'osc_pad',
+#'osc_gtar',
+'osc_bell',
+'osc_bzzy',
+'osc_org',
 ##'osc_dist',
 ##'osc_rnd',
 ##'osc_clp',
@@ -290,7 +290,7 @@ class oscillators(object):
         v += sin(n*x)/n * m # reduce amplitude of higher partials to minimize Gibbs effect
       return v
 
-    def osc_sqr2(x, partials):
+    def osc_5th(x, partials):
       k = pi/2/partials
       v = 0.0
       for n in range(2,6):
@@ -308,7 +308,7 @@ class oscillators(object):
         wm = 2
         return sin(wc*x+kw*sin(wm*x))
 
-    def osc_fm2(x,partials):
+    def osc_fm(x,partials):
         #https://www.desmos.com/calculator/dpbikmtqnq
         wc = 1
         kw = 1.6
@@ -363,12 +363,12 @@ class oscillators(object):
         if ssp >= max:
             ssp = max
         return ssp
+    
+    def osc_trum(x,partials):
+        return (sin(1+2*x+sin(1+x+sin(x)))+sin(x))/2
 
     def osc_tuba(x,partials):
         return (sin(1+2*x+sin(-1+x+sin(x)))+sin(x))/2
-
-    def osc_trum(x,partials):
-        return (sin(1+2*x+sin(1+x+sin(x)))+sin(x))/2
 
     def osc_soft(x,partials):
         return 0.2+(sin(1+2*x+sin(2*x+sin(x)))+sin(x))/1.8
@@ -376,24 +376,24 @@ class oscillators(object):
     def osc_pad(x,partials):
         return (sin(1+2*x+sin(2*x+sin(2*x)))+sin(x))/2
 
-    def osc_tst1(x,partials):
+    def osc_gtar(x,partials):
         x /= 2
         y=3 # change this to get interesting varitations of the wave, 3 is pretty sounding, 8 and above add lots of noise
         return -(sin((2*x+sin((33+sin(y*x))))+2.13))
    
-    def osc_tst2(x,partials):
+    def osc_bell(x,partials):
         x /= 2
         y=9 # change this to get interesting varitations of the wave, 3 is pretty sounding, 8 and above add lots of noise
         return -(sin((2*x+sin((33+sin(y*x))))+2.13))
-
+   
     def osc_bzzy(x,partials):
         x /= 2
-        y= 8 # change this to get interesting varitations of the wave, 4 is pretty sounding, 8 and above add lots of noise
-        return -0.62*asin(sin((2*x+sin((33+sin(y*x))))+2.13))
-   
-    def osc_bzz2(x,partials):
-        x /= 2
         y= 4 # change this to get interesting varitations of the wave, 4 is pretty sounding, 8 and above add lots of noise
+        return -0.62*asin(sin((2*x+sin((33+sin(y*x))))+2.13))
+    
+    def osc_org(x,partials):
+        x /= 2
+        y= 8 # change this to get interesting varitations of the wave, 4 is pretty sounding, 8 and above add lots of noise
         return -0.62*asin(sin((2*x+sin((33+sin(y*x))))+2.13))
 
     def osc_dist(x,partials):
@@ -608,3 +608,4 @@ if len(oscList) != 0:
     print(str(len(os.listdir(addendumPath)))+' files added from /'+addendumPath+'/')
     print(str(chordWavsGenerated+len(os.listdir(addendumPath)))+' files per oscillator to export to C6, must be below 64 for MnM')
     print(spacer)
+
