@@ -1,9 +1,6 @@
-# THIS README & CODE IS A WIP but the code works well
 to do:
-* decide on final chord list. just need to make cuts and decisoons. I definitely want a few inversions in there.
 * clean up code section by section
 * clean up this github readme
-* make final post to elektronauts
 
 # Single Cycle Chord Generator for the Elektron Monomachine (and other samplers) 
 
